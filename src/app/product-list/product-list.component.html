@@ -1,1 +1,8 @@
-<p>product-list works!</p>
+<div class="ui link cards">
+    <app-product *ngFor="let product of products | async" class="card"
+      [product]="product">
+    </app-product>
+</div>
+
+
+

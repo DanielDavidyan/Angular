@@ -1,0 +1,39 @@
+@import "src/styles/colors.less";
+
+#navbar {
+  margin: 0 auto;
+  background-color: @background;
+
+  &:hover {
+    color: @white;
+  }
+
+  #logo {
+    width: 10em;
+  }
+
+  #search {
+    width: 30vw;
+  }
+
+  .icon.button {
+    background-color: @orange;
+  }
+
+  .navbar-actions {
+    color: @white;
+
+    #number-of-products {
+      color: @orange;
+      font-weight: bold;
+
+      &:before {
+        content: "(";
+      }
+
+      &:after {
+        content: ")";
+      }
+    }
+  }
+}

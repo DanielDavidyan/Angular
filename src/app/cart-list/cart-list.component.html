@@ -1,1 +1,28 @@
-<p>cart-list works!</p>
+<div id="shopping-cart">
+  <p id="title"> Your Shopping Cart </p>
+  <div class="ui very relaxed divided items">
+
+    <app-cart-product *ngFor="let cartProduct of (cartProducts|async) | keyvalue " class="item"
+                      [cartProduct]="cartProduct.key">
+    </app-cart-product>
+
+    <div class="item">
+      <h3> Total Price: <i class="shekel sign icon shekel-sign-icon"></i> 430.00 </h3>
+    </div>
+  </div>
+</div>
+
+<div id="cart-actions">
+  <a>
+    <div class="ui black button">
+      continue shopping
+    </div>
+  </a>
+  <a>
+    <div class="ui right labeled icon button" id="checkout">
+      checkout
+      <i class="shopping cart icon"></i>
+    </div>
+  </a>
+</div>
+

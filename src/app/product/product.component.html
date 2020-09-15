@@ -1,1 +1,37 @@
-<p>product works!</p>
+<div class="image">
+  <img src="{{product.image}}" alt="Oatmeal">
+</div>
+<div class="content">
+  <div class="header">
+    <a [title]="product.name + ' details'" [routerLink]="['/products',productId]"
+       class="product-name"> {{product.name}}
+    </a>
+  </div>
+  <div class="description">
+    {{product.description}}
+  </div>
+</div>
+<div class="extra content">
+    <span class="right floated">
+      <button *ngIf="!isExistInCart(product)" (click)="addProduct(product)" class="ui primary button" id="button-add">
+        Add to cart
+      </button>
+      <button *ngIf="isExistInCart(product)" (click)="removeProduct(product)" class="ui primary button" id="button-remove">
+        remove from cart
+      </button>
+    </span>
+  <span>
+      <div>
+        <i class="shekel sign icon"></i> {{product.price}}
+      </div>
+      <div>
+        <i class="yellow star icon"></i>
+        <i class="yellow star icon"></i>
+        <i class="yellow star icon"></i>
+        <i class="star icon"></i>
+        <i class="star icon"></i>
+      </div>
+    </span>
+</div>
+
+

@@ -1,1 +1,46 @@
-<p>nav-bar works!</p>
+<div class="ui grid" id="navbar">
+  <div class="four wide column">
+    <a [routerLink]="['']">
+      <img src="assets/photos/white_logo.png" id="logo" alt="whitelogo"/>
+    </a>
+  </div>
+  <div class="eight wide column">
+    <div class="ui action input">
+      <input type="text" placeholder="Search..." id="search">
+      <button class="ui icon button">
+        <i class="search icon"></i>
+      </button>
+    </div>
+  </div>
+  <div class="two wide column middle aligned">
+    <a class="actions browse item navbar-actions" href="">
+      Account&Lists
+      <i class="dropdown icon"></i>
+    </a>
+    <div class="ui fluid popup bottom left transition hidden">
+      <div class="ui two column relaxed divided grid">
+        <div class="column">
+          <p class="ui header"> Your Account </p>
+          <div class="ui link list">
+            <a class="item"> SIGN IN </a>
+            <a class="item"> SIGN UP </a>
+          </div>
+        </div>
+        <div class="column">
+          <p class="ui header"> Your Lists </p>
+          <div class="ui link list">
+            <a class="item"> Create New List </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="two wide column">
+    <a class="navbar-actions" [routerLink]="['/cart']">
+      <div id="number-of-products">
+        2
+      </div>
+      <i class="shopping cart icon"></i> cart
+    </a>
+  </div>
+</div>

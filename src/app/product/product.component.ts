@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ProductsService} from './products.service';
+import {Product} from '../models/stock.model';
+import {Input} from '@angular/core';
+import {CartProductsService} from '../cart/cart-products.service';
 
 @Component({
   selector: 'app-product',
@@ -6,10 +10,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product.component.less']
 })
 export class ProductComponent implements OnInit {
+  @Input() product: Product;
+  productId;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private productsService: ProductsService,
+              private cartProductsService: CartProductsService) {
   }
 
+  ngOnInit(): void {
+    this.productId = this.product.name;
+    console.log(this.product.name, this.product.limit); // removeeeeeeeeeeeeeeeeeeeeeee!!!!!!!!!!!!
+  }
+
+  addProduct(product: Product): void {
+    this.cartProductsService.addProduct(product);
+  }
+
+  removeProduct(product: Product): void {
+    this.cartProductsService.removeProduct(product);
+  }
+
+  isExistInCart(product: Product): boolean {
+    return this.cartProductsService.isExistInCart(product);
+  }
 }

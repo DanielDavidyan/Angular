@@ -1,0 +1,54 @@
+@import "src/styles/colors.less";
+
+:host {
+  &:hover{
+    .image{
+      opacity: 0.6;
+    }
+  }
+}
+
+.card :hover {
+  .image {
+    opacity: 0.6;
+  }
+}
+
+.image {
+  background-color: @white !important;
+}
+
+.header {
+  &:hover {
+    .product-name {
+      color: @orange;
+    }
+
+    text-decoration: underline;
+  }
+
+  .product-name {
+    color: @black;
+  }
+}
+
+
+#button-add {
+  color: @black;
+  background-color: @orange;
+  border: solid 1px @brown;
+
+  &:hover {
+    background-color: @bright-orange;
+  }
+}
+
+#button-remove {
+  color: @white;
+  background-color: @silver;
+  border: solid 1px @brown;
+
+  &:hover {
+    background-color: @black;
+  }
+}

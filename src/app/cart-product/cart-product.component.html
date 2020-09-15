@@ -1,1 +1,24 @@
-<p>cart-product works!</p>
+<div *ngIf="product" class="image">
+  <img src="{{product.image}}" alt="{{product.name}}"/>
+</div>
+<div *ngIf="product" class="content">
+  <a class="header"> {{product.name}} </a>
+  <div class="meta">
+    <span class="cinema"> {{product.description}} </span>
+  </div>
+  <div class="description">
+    <p><i class="shekel sign icon shekel-sign-icon"></i> {{product.price}} </p>
+  </div>
+  <div class="extra">
+    <mat-form-field *ngIf="product.limit">
+      <mat-select [(value)]="amount">
+        <mat-option *ngFor="let amount of options" value="{{amount}}">{{amount}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+      <input *ngIf="!product.limit" id="amount2" type="number" value="1">
+  </div>
+</div>
+<a (click)="removeProduct(product)"> <i class="red close icon"></i> </a>
+
+
