@@ -1,16 +1,18 @@
 import {Injectable} from '@angular/core';
-import {Observable, BehaviorSubject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {Product} from '../models/stock.model';
-import {combineLatest } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartProductsService {
-  cartProducts: BehaviorSubject<Record<string, number>>;
+  private readonly cartProducts: BehaviorSubject<Record<string, number>>;
+  totalPrice;
 
   constructor() {
     this.cartProducts = new BehaviorSubject<Record<string, number>>({});
+    this.totalPrice = 0;
   }
 
   getCartProducts(): BehaviorSubject<Record<string, number>> {
@@ -23,8 +25,6 @@ export class CartProductsService {
         const cart = this.cartProducts.getValue();
         cart[product.name] = 1;
         this.cartProducts.next(cart);
-      } else {
-        console.log('Sold out!');
       }
     }
   }
@@ -39,41 +39,15 @@ export class CartProductsService {
     return !!this.cartProducts.getValue()[product.name];
   }
 
-
-  // public updateProductAmount(product: Product, amount: number) {
-  //   if (product.limit >= amount) {
-  //     let cart = this.productsInCart.getValue();
-  //     cart[product.name] = amount;
-  //     this.productsInCart.next(cart);
-  //   } else
-  //     console.log(`You can buy maximum ${product.limit} ${product.name}`);
-  // }
-  //
-
-  public getTotalPrice(products: Observable<Product[]>): number {
-    let totalPrice = 0;
-    combineLatest([this.cartProducts, products]).subscribe(([cart, stock]) => {
-      const productsInCart: string[] = Object.keys(cart);
-      totalPrice = productsInCart.reduce((total, product) =>
-        total + (cart[product] * stock.find((prod) => prod.name === product).price)
-        , 0);
-    });
-    return totalPrice;
+  public updateProductAmount(product: Product, amount: number): void {
+    const cart = this.cartProducts.getValue();
+    cart[product.name] = amount;
+    this.cartProducts.next(cart);
   }
-
-
-  // public checkout(stock: Observable<Product[]>) {
-  //   combineLatest([this.productsInCart, stock]).subscribe(([cart, stock]) => {
-  //     const productsInCart: string[] = Object.keys(cart);
-  //     productsInCart.map(cartProduct => {
-  //       const stockProduct = stock.find(product => product.name === cartProduct);
-  //       stockProduct.limit -= cart[cartProduct];
-  //     })
-  //   })
-  // }
-
-
 }
+
+
+
 
 
 

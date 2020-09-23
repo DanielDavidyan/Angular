@@ -1,5 +1,8 @@
 <div class="image">
   <img src="{{product.image}}" alt="Oatmeal">
+  <div *ngIf="product.limit < 1" class="text-block">
+    <h4> out of stock! </h4>
+  </div>
 </div>
 <div class="content">
   <div class="header">
@@ -12,14 +15,22 @@
   </div>
 </div>
 <div class="extra content">
-    <span class="right floated">
-      <button *ngIf="!isExistInCart(product)" (click)="addProduct(product)" class="ui primary button" id="button-add">
+  <span class="right floated">
+      <button
+        *ngIf="!isExistInCart(product) && ((product.hasOwnProperty('limit') && product.limit > 0) || (!product.hasOwnProperty('limit')))"
+        (click)="addProduct(product)" class="ui primary button" id="button-add">
         Add to cart
       </button>
-      <button *ngIf="isExistInCart(product)" (click)="removeProduct(product)" class="ui primary button" id="button-remove">
+      <button
+        *ngIf="!isExistInCart(product) && !((product.hasOwnProperty('limit') && product.limit > 0) || (!product.hasOwnProperty('limit')))"
+        class="ui primary button" id="button-add-outOfStock">
+        Add to cart
+      </button>
+      <button *ngIf="isExistInCart(product)" (click)="removeProduct(product)" class="ui primary button"
+              id="button-remove">
         remove from cart
       </button>
-    </span>
+  </span>
   <span>
       <div>
         <i class="shekel sign icon"></i> {{product.price}}
@@ -31,7 +42,7 @@
         <i class="star icon"></i>
         <i class="star icon"></i>
       </div>
-    </span>
+  </span>
 </div>
 
 

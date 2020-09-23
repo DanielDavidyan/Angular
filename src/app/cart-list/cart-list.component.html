@@ -7,18 +7,18 @@
     </app-cart-product>
 
     <div class="item">
-      <h3> Total Price: <i class="shekel sign icon shekel-sign-icon"></i> 430.00 </h3>
+      <h3> Total Price: <i class="shekel sign icon shekel-sign-icon"></i> {{totalPrice | async}} </h3>
     </div>
   </div>
 </div>
 
 <div id="cart-actions">
-  <a>
+  <a [routerLink]="['']">
     <div class="ui black button">
       continue shopping
     </div>
   </a>
-  <a>
+  <a (click)="checkout()">
     <div class="ui right labeled icon button" id="checkout">
       checkout
       <i class="shopping cart icon"></i>

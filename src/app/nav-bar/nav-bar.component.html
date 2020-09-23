@@ -6,7 +6,7 @@
   </div>
   <div class="eight wide column">
     <div class="ui action input">
-      <input type="text" placeholder="Search..." id="search">
+      <label for="search"></label><input type="text" placeholder="Search..." id="search">
       <button class="ui icon button">
         <i class="search icon"></i>
       </button>
@@ -38,7 +38,7 @@
   <div class="two wide column">
     <a class="navbar-actions" [routerLink]="['/cart']">
       <div id="number-of-products">
-        2
+        {{(numberOfProducts | async)}}
       </div>
       <i class="shopping cart icon"></i> cart
     </a>

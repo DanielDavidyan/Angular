@@ -17,6 +17,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
     imports: [
@@ -32,7 +33,8 @@ import {MatSliderModule} from '@angular/material/slider';
         MatSelectModule,
         MatSliderModule,
         BrowserAnimationsModule,
-        FormsModule
+        FormsModule,
+        MatInputModule
     ],
   declarations: [
     AppComponent,

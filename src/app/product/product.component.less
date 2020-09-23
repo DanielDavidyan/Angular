@@ -1,8 +1,8 @@
 @import "src/styles/colors.less";
 
 :host {
-  &:hover{
-    .image{
+  &:hover {
+    .image {
       opacity: 0.6;
     }
   }
@@ -37,18 +37,41 @@
   color: @black;
   background-color: @orange;
   border: solid 1px @brown;
+  padding: 0.6vw;
+
 
   &:hover {
     background-color: @bright-orange;
   }
 }
 
+#button-add-outOfStock {
+  opacity: 0.2;
+  color: @black;
+  background-color: @orange;
+  border: solid 1px @brown;
+  padding: 0.6vw;
+}
+
+
 #button-remove {
   color: @white;
   background-color: @silver;
   border: solid 1px @brown;
+  padding: 0.6vw;
 
   &:hover {
     background-color: @black;
   }
 }
+
+.text-block {
+  position: absolute;
+  bottom: 27%;
+  right: 33%;
+  padding: 2%;
+  background-color: @pink;
+  border: @red 3px solid;
+  color: @red;
+}
+

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductsService} from '../product/products.service';
 import {CartProductsService} from '../cart/cart-products.service';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {Product} from '../models/stock.model';
 
 @Component({
   selector: 'app-cart-list',
@@ -10,11 +12,35 @@ import {BehaviorSubject} from 'rxjs';
 })
 export class CartListComponent implements OnInit {
   cartProducts: BehaviorSubject<Record<string, number>>;
+  products: Observable<Product[]>;
+  totalPrice: Observable<number>;
 
-  constructor(private cartProductsService: CartProductsService ) { }
+  constructor(private productsService: ProductsService,
+              private cartProductsService: CartProductsService) {
+  }
 
   ngOnInit(): void {
     this.cartProducts = this.cartProductsService.getCartProducts();
+    this.products = this.productsService.getProducts();
+    this.getTotalPrice(this.cartProducts);
+    console.log('cartttt', this.cartProductsService.getCartProducts().getValue());
+    this.productsService.getProducts().subscribe(x => setTimeout(() => console.log('stockkkk', x), 10000));
   }
 
+  public getTotalPrice(cartProducts: BehaviorSubject<Record<string, number>>): void {
+    this.totalPrice = combineLatest([cartProducts, this.products]).pipe(map(([cart, stock]) => {
+      const productsInCart: string[] = Object.keys(cart);
+      return productsInCart.reduce((total, product) =>
+        total + (cart[product] * stock.find((prod) => prod.name === product).price)
+        , 0);
+    }));
+  }
+
+  public checkout(): void {
+    const productsInCart = Object.keys(this.cartProductsService.getCartProducts().getValue());
+    productsInCart.map(cartProducts => {
+      this.productsService.updateLimit(cartProducts, this.cartProductsService.getCartProducts().getValue()[cartProducts]);
+    });
+    this.cartProductsService.getCartProducts().next({});
+  }
 }
