@@ -11,7 +11,8 @@ import {CartProductsService} from '../cart/cart-products.service';
 })
 export class ProductComponent implements OnInit {
   @Input() product: Product;
-  productId;
+  cartProductName: string;
+  productId: string;
 
   constructor(private productsService: ProductsService,
               private cartProductsService: CartProductsService) {
@@ -19,17 +20,18 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.productId = this.product.name;
+    this.cartProductName = this.product.name;
   }
 
   addProduct(product: Product): void {
     this.cartProductsService.addProduct(product);
   }
 
-  removeProduct(product: Product): void {
-    this.cartProductsService.removeProduct(product);
+  removeProduct(cartProductName: string): void {
+    this.cartProductsService.removeProduct(cartProductName);
   }
 
-  isExistInCart(product: Product): boolean {
-    return this.cartProductsService.isExistInCart(product);
+  isExistInCart(cartProductName: string): boolean {
+    return this.cartProductsService.isExistInCart(cartProductName);
   }
 }

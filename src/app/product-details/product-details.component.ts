@@ -1,8 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ProductsService} from '../product/products.service';
 import {Product} from '../models/stock.model';
-import {Observable, pipe} from 'rxjs';
 
 
 @Component({
@@ -12,7 +11,7 @@ import {Observable, pipe} from 'rxjs';
 })
 export class ProductDetailsComponent implements OnInit {
   product: Product;
-  productId;
+  productId: string;
 
   constructor(
     private route: ActivatedRoute,

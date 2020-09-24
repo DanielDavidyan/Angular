@@ -10,23 +10,23 @@ import {BehaviorSubject} from 'rxjs';
   styleUrls: ['./cart-product.component.less']
 })
 export class CartProductComponent implements OnInit {
-  @Input() cartProduct: string;
+  @Input() cartProductName: string;
   product: Product;
   options: number[];
   cartProducts: BehaviorSubject<Record<string, number>>;
 
   constructor(private productsService: ProductsService,
               private cartProductService: CartProductsService) {
-    this.cartProducts = this.cartProductService.getCartProducts();
   }
 
   ngOnInit(): void {
-    this.productsService.getProduct(this.cartProduct).subscribe(val => this.product = val);
+    this.productsService.getProduct(this.cartProductName).subscribe(product => this.product = product);
     this.options = this.createArray(this.product.limit);
+    this.cartProducts = this.cartProductService.getCartProducts();
   }
 
-  removeProduct(product: Product): void {
-    this.cartProductService.removeProduct(product);
+  removeProduct(cartProductName: string): void {
+    this.cartProductService.removeProduct(cartProductName);
   }
 
   updateProductAmount(amount: any): void {

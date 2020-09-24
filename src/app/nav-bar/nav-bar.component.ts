@@ -18,8 +18,8 @@ export class NavBarComponent implements OnInit {
     this.howManyProducts(this.cartProductsService.getCartProducts());
   }
 
-  public howManyProducts(cartProducts: BehaviorSubject<Record<string, number>>): void {
-    this.numberOfProducts = cartProducts.pipe(map(products => {
+  howManyProducts(cartProducts: BehaviorSubject<Record<string, number>>): void {
+    this.numberOfProducts = cartProducts.pipe(map(() => {
       const productsInCart: string[] = Object.keys(cartProducts.getValue());
       return productsInCart.length;
     }));

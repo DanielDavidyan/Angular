@@ -1,8 +1,8 @@
 <app-nav-bar></app-nav-bar>
 <div *ngIf="product" id="product">
-  <span> <img src="{{product.image}}" id="image"> </span>
+  <span> <img src="{{product.image}}" id="image" alt="{{product.name}}"> </span>
   <span>
-    <h2> {{product.name}} </h2>
+    <p id="title"> {{product.name}} </p>
     <p> {{product.price}} </p>
     <p> {{product.description}} </p>
   </span>

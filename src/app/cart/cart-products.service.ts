@@ -8,18 +8,16 @@ import {Product} from '../models/stock.model';
 })
 export class CartProductsService {
   private readonly cartProducts: BehaviorSubject<Record<string, number>>;
-  totalPrice;
 
   constructor() {
     this.cartProducts = new BehaviorSubject<Record<string, number>>({});
-    this.totalPrice = 0;
   }
 
   getCartProducts(): BehaviorSubject<Record<string, number>> {
     return this.cartProducts;
   }
 
-  public addProduct(product: Product): void {
+   addProduct(product: Product): void {
     if (product) {
       if (product.limit > 0 || product.limit === undefined) {
         const cart = this.cartProducts.getValue();
@@ -29,25 +27,19 @@ export class CartProductsService {
     }
   }
 
-  public removeProduct(product: Product): void {
+   removeProduct(cartProductName: string): void {
     const cart = this.cartProducts.getValue();
-    delete cart[product.name];
+    delete cart[cartProductName];
     this.cartProducts.next(cart);
   }
 
-  public isExistInCart(product: Product): boolean {
-    return !!this.cartProducts.getValue()[product.name];
+   isExistInCart(cartProductName: string): boolean {
+    return !!this.cartProducts.getValue()[cartProductName];
   }
 
-  public updateProductAmount(product: Product, amount: number): void {
+   updateProductAmount(product: Product, amount: number): void {
     const cart = this.cartProducts.getValue();
     cart[product.name] = amount;
     this.cartProducts.next(cart);
   }
 }
-
-
-
-
-
-

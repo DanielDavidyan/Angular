@@ -23,11 +23,9 @@ export class CartListComponent implements OnInit {
     this.cartProducts = this.cartProductsService.getCartProducts();
     this.products = this.productsService.getProducts();
     this.getTotalPrice(this.cartProducts);
-    console.log('cartttt', this.cartProductsService.getCartProducts().getValue());
-    this.productsService.getProducts().subscribe(x => setTimeout(() => console.log('stockkkk', x), 10000));
   }
 
-  public getTotalPrice(cartProducts: BehaviorSubject<Record<string, number>>): void {
+   getTotalPrice(cartProducts: BehaviorSubject<Record<string, number>>): void {
     this.totalPrice = combineLatest([cartProducts, this.products]).pipe(map(([cart, stock]) => {
       const productsInCart: string[] = Object.keys(cart);
       return productsInCart.reduce((total, product) =>
@@ -36,7 +34,7 @@ export class CartListComponent implements OnInit {
     }));
   }
 
-  public checkout(): void {
+   checkout(): void {
     const productsInCart = Object.keys(this.cartProductsService.getCartProducts().getValue());
     productsInCart.map(cartProducts => {
       this.productsService.updateLimit(cartProducts, this.cartProductsService.getCartProducts().getValue()[cartProducts]);

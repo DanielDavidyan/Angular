@@ -1,27 +1,28 @@
-<div *ngIf="product" class="image">
-  <img src="{{product.image}}" alt="{{product.name}}">
-</div>
-<div *ngIf="product" class="content">
-  <a class="header"> {{product.name}} </a>
-  <div class="meta">
-    <span class="cinema"> {{product.description}} </span>
+<ng-container *ngIf="product">
+  <div class="image">
+    <img src="{{product.image}}" alt="{{product.name}}">
   </div>
-  <div class="description">
-    <p><i class="shekel sign icon shekel-sign-icon"></i> {{product.price}} </p>
+  <div class="content">
+    <a class="header"> {{product.name}} </a>
+    <div class="meta">
+      <span class="cinema"> {{product.description}} </span>
+    </div>
+    <div class="description">
+      <p><i class="shekel sign icon shekel-sign-icon"></i> {{product.price}} </p>
+    </div>
+    <div class="extra">
+      <mat-form-field *ngIf="product.limit">
+        <mat-select (selectionChange)="updateProductAmount($event)" [value]="(cartProducts|async)[product.name]">
+          <mat-option *ngFor="let amount of options" [value]="amount">
+            {{amount}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <ng-container *ngIf=!product.limit>
+        <label for="input"></label><input id="input" type="number" min="1" [value]="(cartProducts|async)[product.name]"
+                                          (change)="updateInput($event)">
+      </ng-container>
+    </div>
   </div>
-  <div class="extra">
-    <mat-form-field *ngIf="product.limit">
-      <mat-select (selectionChange)="updateProductAmount($event)" [value]="(cartProducts|async)[product.name]">
-        <mat-option *ngFor="let amount of options" [value]="amount">
-          {{amount}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <ng-container *ngIf=!product.limit>
-      <label for="input"></label><input id="input" type="number" min="1" [value]="(cartProducts|async)[product.name]"
-                                        (change)="updateInput($event)">
-    </ng-container>
-  </div>
-</div>
-<a (click)="removeProduct(product)"> <i class="red close icon"></i> </a>
-
+  <a (click)="removeProduct(cartProductName)"> <i class="red close icon"></i> </a>
+</ng-container>
