@@ -30,11 +30,11 @@ export class CartProductComponent implements OnInit {
   }
 
   updateProductAmount(amount: any): void {
-    this.cartProductService.updateProductAmount(this.product, amount.value);
+    this.cartProductService.updateProductAmount(this.cartProductName, amount.value);
   }
 
   updateInput(event: any): void {
-    this.cartProductService.updateProductAmount(this.product, event.target.value);
+    this.cartProductService.updateProductAmount(this.cartProductName, event.target.value);
   }
 
   createArray(size: number): number[] {

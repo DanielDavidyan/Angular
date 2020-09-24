@@ -37,9 +37,9 @@ export class CartProductsService {
     return !!this.cartProducts.getValue()[cartProductName];
   }
 
-   updateProductAmount(product: Product, amount: number): void {
+   updateProductAmount(cartProductName: string, amount: number): void {
     const cart = this.cartProducts.getValue();
-    cart[product.name] = amount;
+    cart[cartProductName] = amount;
     this.cartProducts.next(cart);
   }
 }
