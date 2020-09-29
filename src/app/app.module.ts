@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppComponent} from './app.component';
+
 import {IndexComponent} from './index/index.component';
 import {NavBarComponent} from './nav-bar/nav-bar.component';
 import {ProductComponent} from './product/product.component';
@@ -20,22 +20,22 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        RouterModule.forRoot([
-            {path: '', component: IndexComponent},
-            {path: 'cart', component: CartComponent},
-            {path: 'products/:productId', component: ProductDetailsComponent},
-        ]),
-        MatFormFieldModule,
-        MatSelectModule,
-        MatSliderModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        MatInputModule
-    ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot([
+      {path: '', component: IndexComponent},
+      {path: 'cart', component: CartComponent},
+      {path: 'products/:productId', component: ProductDetailsComponent},
+    ]),
+    MatFormFieldModule,
+    MatSelectModule,
+    MatSliderModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    MatInputModule
+  ],
   declarations: [
     AppComponent,
     IndexComponent,

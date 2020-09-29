@@ -17,17 +17,18 @@
 <div class="extra content">
   <span class="right floated">
       <button
-        *ngIf="!isExistInCart(cartProductName) && ((product.hasOwnProperty('limit') && product.limit > 0) || (!product.hasOwnProperty('limit')))"
-        (click)="addProduct(product)" class="ui primary button" id="button-add">
+        *ngIf="!isExistInCart(cartProductName) &&
+        ((product.hasOwnProperty('limit') && product.limit > 0) || (!product.hasOwnProperty('limit')))" (click)="addProduct(product)"
+        class="ui primary button" id="button-add">
         Add to cart
       </button>
-      <button
-        *ngIf="!isExistInCart(cartProductName) && !((product.hasOwnProperty('limit') && product.limit > 0) || (!product.hasOwnProperty('limit')))"
-        class="ui primary button" id="button-add-outOfStock">
+      <button *ngIf="!isExistInCart(cartProductName) &&
+      !((product.hasOwnProperty('limit') && product.limit > 0) || (!product.hasOwnProperty('limit')))"
+              class="ui primary button" id="button-add-outOfStock">
         Add to cart
       </button>
-      <button *ngIf="isExistInCart(cartProductName)" (click)="removeProduct(cartProductName)" class="ui primary button"
-              id="button-remove">
+      <button *ngIf="isExistInCart(cartProductName)" (click)="removeProduct(cartProductName)"
+              class="ui primary button" id="button-remove">
         remove from cart
       </button>
   </span>

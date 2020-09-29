@@ -22,6 +22,6 @@ export class NavBarComponent implements OnInit {
     this.numberOfProducts = cartProducts.pipe(map(() => {
       const productsInCart: string[] = Object.keys(cartProducts.getValue());
       return productsInCart.length;
-    }));
+    }));  
   }
 }
