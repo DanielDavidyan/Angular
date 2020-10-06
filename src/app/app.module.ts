@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {IndexComponent} from './index/index.component';
 import {NavBarComponent} from './nav-bar/nav-bar.component';
-import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -36,7 +35,6 @@ import {CartModule} from './cart-module/cart.module';
     IndexComponent,
     NavBarComponent
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
