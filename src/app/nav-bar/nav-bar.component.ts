@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {CartProductsService} from '../cart/cart-products.service';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {CartProductsService} from '../cart-module/cart-service/cart-products.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -22,6 +22,6 @@ export class NavBarComponent implements OnInit {
     this.numberOfProducts = cartProducts.pipe(map(() => {
       const productsInCart: string[] = Object.keys(cartProducts.getValue());
       return productsInCart.length;
-    }));  
+    }));
   }
 }

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductsService} from '../product/products.service';
-import {CartProductsService} from '../cart/cart-products.service';
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {Product} from '../models/stock.model';
+import {Product} from '../../models/stock.model';
+import {ProductsService} from '../../products-module/product-service/products.service';
+import {CartProductsService} from '../cart-service/cart-products.service';
 
 @Component({
   selector: 'app-cart-list',

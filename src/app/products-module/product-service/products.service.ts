@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {Product} from '../models/stock.model';
+import {Product} from '../../models/stock.model';
 import {map} from 'rxjs/operators';
+import {ProductsModule} from '../product.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: ProductsModule
 })
 export class ProductsService {
   products: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);

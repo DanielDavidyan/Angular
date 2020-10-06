@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Product} from '../models/stock.model';
-import {ProductsService} from '../product/products.service';
-import {CartProductsService} from '../cart/cart-products.service';
 import {BehaviorSubject} from 'rxjs';
+import {Product} from '../../models/stock.model';
+import {ProductsService} from '../../products-module/product-service/products.service';
+import {CartProductsService} from '../cart-service/cart-products.service';
 
 @Component({
   selector: 'app-cart-product',
