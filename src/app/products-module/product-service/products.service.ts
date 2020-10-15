@@ -29,10 +29,8 @@ export class ProductsService {
   updateLimit(productName: string, limit: number): void {
     const currentProducts = this.products.getValue();
     const productIndex = currentProducts.findIndex((originalProduct: Product) => originalProduct.name === productName);
-    if (productIndex !== -1) {
-      if (currentProducts[productIndex].limit) {
+    if (productIndex !== -1 && currentProducts[productIndex].limit) {
         currentProducts[productIndex].limit -= limit;
-      }
     }
     this.products.next(currentProducts);
   }

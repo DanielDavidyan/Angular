@@ -1,7 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
-import {IndexComponent} from './index/index.component';
 import {NavBarComponent} from './nav-bar/nav-bar.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -13,6 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import {AppRoutingModule} from './app-routing.module';
 import {ProductsModule} from './products-module/product.module';
 import {CartModule} from './cart-module/cart.module';
+import {IndexComponent} from './index/index.component';
 
 
 @NgModule({

@@ -1,6 +1,6 @@
 <div class="image">
   <img src="{{product.image}}" alt="Oatmeal">
-  <div *ngIf="product.limit < 1" class="text-block">
+  <div *ngIf="product.limit < 1" class="out-of-stock">
     <p> out of stock! </p>
   </div>
 </div>
@@ -19,16 +19,16 @@
       <button
         *ngIf="!isExistInCart(cartProductName) &&
         ((product.hasOwnProperty('limit') && product.limit > 0) || (!product.hasOwnProperty('limit')))" (click)="addProduct(product)"
-        class="ui primary button" id="button-add">
+        class="ui primary button" id="regular-add">
         Add to cart
       </button>
       <button *ngIf="!isExistInCart(cartProductName) &&
       !((product.hasOwnProperty('limit') && product.limit > 0) || (!product.hasOwnProperty('limit')))"
-              class="ui primary button" id="button-add-outOfStock">
+              class="ui primary button" id="opacity-add">
         Add to cart
       </button>
       <button *ngIf="isExistInCart(cartProductName)" (click)="removeProduct(cartProductName)"
-              class="ui primary button" id="button-remove">
+              class="ui primary button" id="remove">
         remove from cart
       </button>
   </span>

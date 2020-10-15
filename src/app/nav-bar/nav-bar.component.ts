@@ -15,13 +15,10 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.howManyProducts(this.cartProductsService.getCartProducts());
+    this.numberOfProducts = this.getNumberOfProductsInCart(this.cartProductsService.getCartProducts());
   }
 
-  howManyProducts(cartProducts: BehaviorSubject<Record<string, number>>): void {
-    this.numberOfProducts = cartProducts.pipe(map(() => {
-      const productsInCart: string[] = Object.keys(cartProducts.getValue());
-      return productsInCart.length;
-    }));
+  private getNumberOfProductsInCart(cartProducts: BehaviorSubject<Record<string, number>>): Observable<number> {
+      return cartProducts.pipe(map(() => Object.keys(cartProducts.getValue()).length));
   }
 }
