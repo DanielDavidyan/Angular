@@ -37,10 +37,9 @@ export class CartProductComponent implements OnInit {
     this.cartProductService.updateProductAmount(this.cartProductName, event.target.value);
   }
 
-  createArray(size: number): number[] {
+  private createArray(size: number): number[] {
     const arr = [];
-    let index = 1;
-    for (; index <= size; index++) {
+    for (let index = 1; index <= size; index++) {
       arr.push(index);
     }
     return arr;

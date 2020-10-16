@@ -22,11 +22,11 @@ export class CartListComponent implements OnInit {
   ngOnInit(): void {
     this.cartProducts = this.cartProductsService.getCartProducts();
     this.products = this.productsService.getProducts();
-    this.getTotalPrice(this.cartProducts);
+    this.getTotalPrice();
   }
 
-   getTotalPrice(cartProducts: BehaviorSubject<Record<string, number>>): void {
-    this.totalPrice = combineLatest([cartProducts, this.products]).pipe(map(([cart, stock]) => {
+   private getTotalPrice(): void {
+    this.totalPrice = combineLatest([this.cartProducts, this.products]).pipe(map(([cart, stock]) => {
       const productsInCart: string[] = Object.keys(cart);
       return productsInCart.reduce((total, product) =>
         total + (cart[product] * stock.find((prod) => prod.name === product).price)
@@ -36,8 +36,8 @@ export class CartListComponent implements OnInit {
 
    checkout(): void {
     const productsInCart = Object.keys(this.cartProductsService.getCartProducts().getValue());
-    productsInCart.map(cartProducts => {
-      this.productsService.updateLimit(cartProducts, this.cartProductsService.getCartProducts().getValue()[cartProducts]);
+    productsInCart.map(cartProduct => {
+      this.productsService.updateLimit(cartProduct, this.cartProductsService.getCartProducts().getValue()[cartProduct]);
     });
     this.cartProductsService.getCartProducts().next({});
   }
