@@ -29,16 +29,16 @@ export class CartProductComponent implements OnInit {
     this.cartProductService.removeProduct(cartProductName);
   }
 
-  updateProductAmount(amount: any): void {
-    this.cartProductService.updateProductAmount(this.cartProductName, amount.value);
+  updateProductAmount(amount: number): void {
+    this.cartProductService.updateProductAmount(this.cartProductName, amount);
   }
 
-  updateInput(amount: any): void {
-    this.cartProductService.updateProductAmount(this.cartProductName, amount.target.value);
+  updateInput(amount: number): void {
+    this.cartProductService.updateProductAmount(this.cartProductName, amount);
   }
 
   private createArray(size: number): number[] {
-    const arr = [];
+    const arr = [size];
     for (let index = 1; index <= size; index++) {
       arr.push(index);
     }

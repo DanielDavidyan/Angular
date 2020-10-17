@@ -12,7 +12,7 @@
     </div>
     <div class="extra">
       <mat-form-field *ngIf="product.limit; else showInput">
-        <mat-select (selectionChange)="updateProductAmount($event)" [value]="(cartProducts|async)[product.name]">
+        <mat-select (selectionChange)="updateProductAmount($event.value)" [value]="(cartProducts|async)[product.name]">
           <mat-option *ngFor="let amount of options" [value]="amount">
             {{amount}}
           </mat-option>
@@ -20,7 +20,7 @@
       </mat-form-field>
       <ng-template #showInput>
         <label for="input"></label><input id="input" type="number" min="1" [value]="(cartProducts|async)[product.name]"
-                                          (change)="updateInput($event)">
+                                          (change)="updateInput($event.target.value)">
       </ng-template>
     </div>
   </div>

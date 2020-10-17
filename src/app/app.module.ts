@@ -12,7 +12,6 @@ import {MatInputModule} from '@angular/material/input';
 import {AppRoutingModule} from './app-routing.module';
 import {ProductsModule} from './products-module/product.module';
 import {CartModule} from './cart-module/cart.module';
-import {IndexComponent} from './index/index.component';
 
 
 @NgModule({
@@ -32,7 +31,6 @@ import {IndexComponent} from './index/index.component';
   ],
   declarations: [
     AppComponent,
-    IndexComponent,
     NavBarComponent
   ],
   bootstrap: [AppComponent]

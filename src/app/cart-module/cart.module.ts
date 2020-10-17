@@ -6,6 +6,8 @@ import {CartProductComponent} from './cart-product/cart-product.component';
 import {RouterModule} from '@angular/router';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
+import {ProductsService} from '../products-module/product-service/products.service';
+import {CartProductsService} from './cart-service/cart-products.service';
 
 
 @NgModule({
@@ -14,6 +16,9 @@ import {MatSelectModule} from '@angular/material/select';
     CartListComponent,
     CartProductComponent,
   ],
+  providers: [
+    ProductsService,
+    CartProductsService],
   imports: [
     RouterModule,
     CommonModule,

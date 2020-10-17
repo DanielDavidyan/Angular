@@ -1,12 +1,8 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Product} from '../../models/stock.model';
-import {CartModule} from '../cart.module';
 
-
-@Injectable({
-  providedIn: CartModule
-})
+@Injectable()
 export class CartProductsService {
   private readonly cartProducts: BehaviorSubject<Record<string, number>>;
 

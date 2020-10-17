@@ -3,11 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Product} from '../../models/stock.model';
 import {map} from 'rxjs/operators';
-import {ProductsModule} from '../product.module';
-
-@Injectable({
-  providedIn: ProductsModule
-})
+@Injectable()
 export class ProductsService {
   private readonly products: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
 
@@ -23,7 +19,7 @@ export class ProductsService {
 
   getProduct(productName: string): Observable<Product> {
     return this.products.pipe(map((products: Product[]) =>
-      products.find(product => product.name === productName)));
+      products.find(originalProduct => originalProduct.name === productName)));
   }
 
   updateLimit(productName: string, limit: number): void {
