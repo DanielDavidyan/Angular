@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CartComponent} from './cart/cart.component';
 import {CartListComponent} from './cart-list/cart-list.component';
 import {CartProductComponent} from './cart-product/cart-product.component';
 import {RouterModule} from '@angular/router';
@@ -12,7 +11,6 @@ import {CartProductsService} from './cart-service/cart-products.service';
 
 @NgModule({
   declarations: [
-    CartComponent,
     CartListComponent,
     CartProductComponent,
   ],
@@ -26,7 +24,6 @@ import {CartProductsService} from './cart-service/cart-products.service';
     MatSelectModule
   ],
   exports: [
-    CartComponent,
     CartListComponent,
     CartProductComponent,
   ]
