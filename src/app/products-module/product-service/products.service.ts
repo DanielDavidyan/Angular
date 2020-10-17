@@ -9,7 +9,7 @@ import {ProductsModule} from '../product.module';
   providedIn: ProductsModule
 })
 export class ProductsService {
-  products: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
+  private readonly products: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
 
   constructor(private httpClient: HttpClient) {
     this.httpClient.get('assets/stock.json').subscribe((stockProducts: Product[]) => {
@@ -22,7 +22,7 @@ export class ProductsService {
   }
 
   getProduct(productName: string): Observable<Product> {
-    return this.products.pipe(map(products =>
+    return this.products.pipe(map((products: Product[]) =>
       products.find(product => product.name === productName)));
   }
 
@@ -31,7 +31,7 @@ export class ProductsService {
     const productIndex = currentProducts.findIndex((originalProduct: Product) => originalProduct.name === productName);
     if (productIndex !== -1 && currentProducts[productIndex].limit) {
         currentProducts[productIndex].limit -= limit;
+        this.products.next(currentProducts);
     }
-    this.products.next(currentProducts);
   }
 }

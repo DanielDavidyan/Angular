@@ -33,8 +33,8 @@ export class CartProductComponent implements OnInit {
     this.cartProductService.updateProductAmount(this.cartProductName, amount.value);
   }
 
-  updateInput(event: any): void {
-    this.cartProductService.updateProductAmount(this.cartProductName, event.target.value);
+  updateInput(amount: any): void {
+    this.cartProductService.updateProductAmount(this.cartProductName, amount.target.value);
   }
 
   private createArray(size: number): number[] {

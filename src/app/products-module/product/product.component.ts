@@ -9,18 +9,11 @@ import {ProductsService} from '../product-service/products.service';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.less']
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent {
   @Input() product: Product;
-  cartProductName: string;
-  productId: string;
 
   constructor(private productsService: ProductsService,
               private cartProductsService: CartProductsService) {
-  }
-
-  ngOnInit(): void {
-    this.productId = this.product.name;
-    this.cartProductName = this.product.name;
   }
 
   addProduct(product: Product): void {
