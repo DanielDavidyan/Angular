@@ -2,7 +2,9 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Product} from '../../models/stock.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CartProductsService {
   private readonly cartProducts: BehaviorSubject<Record<string, number>>;
 

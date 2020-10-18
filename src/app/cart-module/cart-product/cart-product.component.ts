@@ -38,10 +38,6 @@ export class CartProductComponent implements OnInit {
   }
 
   private createArray(size: number): number[] {
-    const arr = [size];
-    for (let index = 1; index <= size; index++) {
-      arr.push(index);
-    }
-    return arr;
+    return Array.from({length: size}, (_, i) => i + 1);
   }
 }

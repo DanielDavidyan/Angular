@@ -7,7 +7,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {ProductsService} from '../products-module/product-service/products.service';
 import {CartProductsService} from './cart-service/cart-products.service';
-
+import {CartRoutingModule} from './cart-module.routing';
 
 @NgModule({
   declarations: [
@@ -21,11 +21,13 @@ import {CartProductsService} from './cart-service/cart-products.service';
     RouterModule,
     CommonModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    CartRoutingModule
   ],
   exports: [
     CartListComponent,
     CartProductComponent,
   ]
 })
+
 export class CartModule { }

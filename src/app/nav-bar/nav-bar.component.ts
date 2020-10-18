@@ -19,6 +19,9 @@ export class NavBarComponent implements OnInit {
   }
 
   private getNumberOfProductsInCart(cartProducts: BehaviorSubject<Record<string, number>>): Observable<number> {
-      return cartProducts.pipe(map(() => Object.keys(cartProducts.getValue()).length));
+    console.log('nav-bar:', this.cartProductsService.getCartProducts().getValue());
+
+    return cartProducts.pipe(map(() => Object.keys(cartProducts.getValue()).length));
+
   }
 }

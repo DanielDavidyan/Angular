@@ -5,6 +5,7 @@ import {ProductListComponent} from './product-list/product-list.component';
 import {ProductDetailsComponent} from './product-details/product-details.component';
 import {RouterModule} from '@angular/router';
 import {ProductsService} from './product-service/products.service';
+import {ProductModuleRouting} from './product-module.routing';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {ProductsService} from './product-service/products.service';
   providers: [ProductsService],
   imports: [
     RouterModule,
-    CommonModule
+    CommonModule,
+    ProductModuleRouting
   ],
   exports: [
     ProductComponent,
