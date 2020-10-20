@@ -15,21 +15,7 @@
   </div>
 </div>
 <div class="extra content">
-  <span class="right floated">
-<!--      <button *ngIf="!isExistInCart(this.product.name); else remove" class="ui primary button" id="regular-add">-->
-<!--        Add to cart-->
-<!--      </button>-->
-<!--      <ng-template #remove>-->
-<!--        <button class="ui primary button" id="remove">remove from cart</button>-->
-<!--      </ng-template>-->
-
-<!--&lt;!&ndash;      <button *ngIf="!isExistInCart(this.product.name) &&&ndash;&gt;-->
-<!--&lt;!&ndash;      !((product.hasOwnProperty('limit') && product.limit > 0) || (!product.hasOwnProperty('limit')))"&ndash;&gt;-->
-<!--&lt;!&ndash;              class="ui primary button" id="opacity-add">&ndash;&gt;-->
-<!--&lt;!&ndash;        Add to cart&ndash;&gt;-->
-<!--&lt;!&ndash;      </button>&ndash;&gt;-->
-
-
+ <span class="right floated">
       <button
         *ngIf="!isExistInCart(this.product.name) &&
         ((product.hasOwnProperty('limit') && product.limit > 0) || (!product.hasOwnProperty('limit')))" (click)="addProduct(product)"
@@ -45,7 +31,6 @@
               class="ui primary button" id="remove">
         remove from cart
       </button>
-
   </span>
   <span>
       <div>
