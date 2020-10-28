@@ -19,7 +19,7 @@ export class ProductsService {
 
   getProduct(productName: string): Observable<Product> {
     return this.products.pipe(map((products: Product[]) =>
-      products.find(originalProduct => originalProduct.name === productName)));
+      products.find(stockProduct => stockProduct.name === productName)));
   }
 
   updateLimit(productName: string, limit: number): void {

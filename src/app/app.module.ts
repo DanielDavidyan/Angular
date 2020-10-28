@@ -10,8 +10,10 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatInputModule} from '@angular/material/input';
 import {AppRoutingModule} from './app-routing.module';
-import {ProductsModule} from './products-module/product.module';
-import {CartModule} from './cart-module/cart.module';
+import {ProductsModule} from './products/product.module';
+import {CartModule} from './cart/cart.module';
+import {ProductsService} from './products/product-service/products.service';
+import {CartProductsService} from './cart/cart-service/cart-products.service';
 
 
 @NgModule({
@@ -28,6 +30,10 @@ import {CartModule} from './cart-module/cart.module';
     AppRoutingModule,
     ProductsModule,
     CartModule
+  ],
+  providers: [
+    ProductsService,
+    CartProductsService
   ],
   declarations: [
     AppComponent,

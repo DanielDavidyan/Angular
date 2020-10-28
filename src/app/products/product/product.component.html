@@ -6,7 +6,7 @@
 </div>
 <div class="content">
   <div class="header">
-    <a [title]="product.name + ' details'" [routerLink]="['/products',this.product.name]"
+    <a [title]="product.name + ' details'" [routerLink]="['/products',product.name]"
        class="product-name"> {{product.name}}
     </a>
   </div>
@@ -17,17 +17,17 @@
 <div class="extra content">
  <span class="right floated">
       <button
-        *ngIf="!isExistInCart(this.product.name) &&
+        *ngIf="!isExistInCart(product.name) &&
         ((product.hasOwnProperty('limit') && product.limit > 0) || (!product.hasOwnProperty('limit')))" (click)="addProduct(product)"
         class="ui primary button" id="regular-add">
         Add to cart
       </button>
-      <button *ngIf="!isExistInCart(this.product.name) &&
+      <button *ngIf="!isExistInCart(product.name) &&
       !((product.hasOwnProperty('limit') && product.limit > 0) || (!product.hasOwnProperty('limit')))"
               class="ui primary button" id="opacity-add">
         Add to cart
       </button>
-      <button *ngIf="isExistInCart(this.product.name)" (click)="removeProduct(this.product.name)"
+      <button *ngIf="isExistInCart(product.name)" (click)="removeProduct(product.name)"
               class="ui primary button" id="remove">
         remove from cart
       </button>

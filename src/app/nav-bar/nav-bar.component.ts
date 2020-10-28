@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {CartProductsService} from '../cart-module/cart-service/cart-products.service';
+import {CartProductsService} from '../cart/cart-service/cart-products.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -19,9 +19,6 @@ export class NavBarComponent implements OnInit {
   }
 
   private getNumberOfProductsInCart(cartProducts: BehaviorSubject<Record<string, number>>): Observable<number> {
-    console.log('nav-bar:', this.cartProductsService.getCartProducts().getValue());
-
     return cartProducts.pipe(map(() => Object.keys(cartProducts.getValue()).length));
-
   }
 }

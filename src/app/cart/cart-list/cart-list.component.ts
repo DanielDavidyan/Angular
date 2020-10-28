@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Product} from '../../models/stock.model';
-import {ProductsService} from '../../products-module/product-service/products.service';
+import {ProductsService} from '../../products/product-service/products.service';
 import {CartProductsService} from '../cart-service/cart-products.service';
 
 @Component({
@@ -23,22 +23,21 @@ export class CartListComponent implements OnInit {
     this.cartProducts = this.cartProductsService.getCartProducts();
     this.products = this.productsService.getProducts();
     this.getTotalPrice();
-
-    console.log('Cart Products:', this.cartProducts.getValue());
-
+    console.log(this.cartProducts.getValue());
   }
 
-   private getTotalPrice(): void {
-    this.totalPrice = combineLatest([this.cartProducts, this.products]).pipe(map(([cart, stock]) => {
+  private getTotalPrice(): void {
+    this.totalPrice = combineLatest([this.cartProducts, this.products]).pipe(
+      map(([cart, stock]) => {
       const productsInCart: string[] = Object.keys(cart);
-      return productsInCart.reduce((total, product) =>
-        total + (cart[product] * stock.find((prod) => prod.name === product).price)
+      return productsInCart.reduce((total: number, product: string) =>
+        total + (cart[product] * stock.find((prod: Product) => prod.name === product).price)
         , 0);
     }));
   }
 
-   checkout(): void {
-    const productsInCart = Object.keys(this.cartProductsService.getCartProducts().getValue());
+  checkout(): void {
+    const productsInCart: string[] = Object.keys(this.cartProductsService.getCartProducts().getValue());
     productsInCart.map(cartProduct => {
       this.productsService.updateLimit(cartProduct, this.cartProductsService.getCartProducts().getValue()[cartProduct]);
     });
