@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Product} from '../../models/stock.model';
 import {map} from 'rxjs/operators';
+
 @Injectable()
 export class ProductsService {
   private readonly products: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
