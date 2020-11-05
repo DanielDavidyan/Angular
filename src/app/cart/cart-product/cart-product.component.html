@@ -20,7 +20,7 @@
       </mat-form-field>
       <ng-template #showInput>
         <label for="input"></label><input id="input" type="number" min="1" [value]="(cartProducts|async)[product.name]"
-                                          (change)="updateInput($event.target.value)">
+                                          (change)="updateProductAmount($event.target.value)">
       </ng-template>
     </div>
   </div>

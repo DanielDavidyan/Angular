@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Product} from '../../models/stock.model';
 import {ProductsService} from '../../products/product-service/products.service';
 import {CartProductsService} from '../cart-service/cart-products.service';
@@ -13,16 +13,16 @@ export class CartProductComponent implements OnInit {
   @Input() cartProductName: string;
   product: Product;
   options: number[];
-  cartProducts: BehaviorSubject<Record<string, number>>;
+  cartProducts: Observable<Record<string, number>>;
 
   constructor(private productsService: ProductsService,
               private cartProductService: CartProductsService) {
   }
 
   ngOnInit(): void {
+    this.cartProducts = this.cartProductService.getCartProducts();
     this.productsService.getProduct(this.cartProductName).subscribe(product => this.product = product);
     this.options = this.createArray(this.product.limit);
-    this.cartProducts = this.cartProductService.getCartProducts();
   }
 
   removeProduct(cartProductName: string): void {
@@ -30,10 +30,6 @@ export class CartProductComponent implements OnInit {
   }
 
   updateProductAmount(amount: number): void {
-    this.cartProductService.updateProductAmount(this.cartProductName, amount);
-  }
-
-  updateInput(amount: number): void {
     this.cartProductService.updateProductAmount(this.cartProductName, amount);
   }
 

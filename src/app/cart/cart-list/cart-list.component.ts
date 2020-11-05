@@ -23,7 +23,6 @@ export class CartListComponent implements OnInit {
     this.cartProducts = this.cartProductsService.getCartProducts();
     this.products = this.productsService.getProducts();
     this.getTotalPrice();
-    console.log(this.cartProducts.getValue());
   }
 
   private getTotalPrice(): void {

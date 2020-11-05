@@ -22,7 +22,6 @@ export class CartProductsService {
     }
   }
 
-
   removeProduct(cartProductName: string): void {
     const cart = this.cartProducts.getValue();
     delete cart[cartProductName];
