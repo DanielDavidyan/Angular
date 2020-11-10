@@ -35,7 +35,7 @@ describe('CartProductComponent', () => {
     fixture = TestBed.createComponent(CartProductComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    component.cartProductName = 'milk';
+    component.cartProductName = product.name;
   });
 
   it('should create', () => {
@@ -43,13 +43,12 @@ describe('CartProductComponent', () => {
   });
 
   it('remove product', () => {
-      component.removeProduct('milk');
-      verify(MockCartProductsService.removeProduct('milk')).called();
+      component.removeProduct(product.name);
+      verify(MockCartProductsService.removeProduct(product.name)).called();
   });
 
   it('updateProductAmount product', () => {
     component.updateProductAmount(5);
-    verify(MockCartProductsService.updateProductAmount('milk', 5)).called();
+    verify(MockCartProductsService.updateProductAmount(product.name, 5)).called();
   });
 });
-

@@ -1,5 +1,4 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {CartListComponent} from './cart-list.component';
 import {CartProductsService} from '../cart-service/cart-products.service';
 import {ProductsService} from '../../products/product-service/products.service';
@@ -46,4 +45,3 @@ describe('CartListComponent', () => {
     verify(MockProductsService.updateLimit(product.name, cartProducts[product.name])).called();
   });
 });
-

@@ -6,7 +6,7 @@ import {map} from 'rxjs/operators';
 
 @Injectable()
 export class ProductsService {
-  private readonly products: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
+   products: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
 
   constructor(private httpClient: HttpClient) {
     this.httpClient.get('assets/stock.json').subscribe((stockProducts: Product[]) => {
