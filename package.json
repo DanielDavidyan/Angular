@@ -23,6 +23,7 @@
     "@angular/router": "~10.0.4",
     "@ngrx/effects": "^10.0.1",
     "@ngrx/store": "^10.0.1",
+    "@ngrx/store-devtools": "^10.0.1",
     "fomantic-ui": "^2.8.6",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",

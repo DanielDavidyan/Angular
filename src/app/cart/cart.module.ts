@@ -6,6 +6,8 @@ import {RouterModule} from '@angular/router';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {CartRoutingModule} from './cart-module.routing';
+import { StoreModule } from '@ngrx/store';
+import {cartReducer, cartToken} from './cart.reducer';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import {CartRoutingModule} from './cart-module.routing';
     CommonModule,
     MatFormFieldModule,
     MatSelectModule,
-    CartRoutingModule
+    CartRoutingModule,
+    StoreModule.forFeature(cartToken, cartReducer)
   ],
   exports: [
     CartListComponent,
