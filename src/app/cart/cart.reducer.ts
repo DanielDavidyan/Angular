@@ -1,31 +1,31 @@
-import {Action, createAction, createFeatureSelector, createReducer, createSelector, on, props} from '@ngrx/store';
+import {createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
 import {addProduct, removeProduct, updateProductAmount} from './cart.actions';
-import {BehaviorSubject} from 'rxjs';
-import {state} from '@angular/animations';
+
 
 export const cartToken = 'cart';
+
 export interface CartProductState {
   cart: Record<string, number>;
 }
+
 export const CartProductsInitialState: CartProductState = {
-  cart: {
-  }
+  cart: {}
 };
 
 export const _cartReducer = createReducer(
   CartProductsInitialState,
-  on(addProduct, (state , {product}) => ({
+  on(addProduct, (state, {product}) => ({
     ...state,
     cart: {
       ...state.cart,
       [product.name]: 1
     }
   })),
-  on(removeProduct, (state , {cartProductName}) => ({
+  on(removeProduct, (state, {cartProductName}) => ({
     ...state,
     cart: remove(state.cart, cartProductName)
   })),
-  on(updateProductAmount, (state , {cartProductName, amount}) => ({
+  on(updateProductAmount, (state, {cartProductName, amount}) => ({
     ...state,
     cart: {
       ...state.cart,
@@ -48,8 +48,6 @@ export const getCart = createSelector(getCartState, state => state.cart);
 // export const updat2eProductAmount = createAction('[cart] UpdateProductAmount', props<{cartProductName: string, amount: number}>());
 
 
-
 export function cartReducer(state, action): CartProductState {
   return _cartReducer(state, action);
 }
-
