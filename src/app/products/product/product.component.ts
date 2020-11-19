@@ -3,9 +3,9 @@ import {Product} from '../../models/stock.model';
 import {Input} from '@angular/core';
 import {CartProductsService} from '../../cart/cart-service/cart-products.service';
 import {ProductsService} from '../product-service/products.service';
-import {addProduct} from '../../cart/cart.actions';
-import {Store} from '@ngrx/store';
-import {CartProductState} from '../../cart/cart.reducer';
+import {addProduct, removeProduct} from '../../cart/cart.actions';
+import {select, Store} from '@ngrx/store';
+import {CartProductState, getCart} from '../../cart/cart.reducer';
 
 @Component({
   selector: 'app-product',
@@ -25,10 +25,11 @@ export class ProductComponent {
   }
 
   removeProduct(cartProductName: string): void {
-    this.cartProductsService.removeProduct(cartProductName);
+    this.store.dispatch(removeProduct({cartProductName}));
   }
 
   isExistInCart(cartProductName: string): boolean {
-    return this.cartProductsService.isExistInCart(cartProductName);
+    return false;
+    // this.store.pipe(select(getCart)).subscribe;
   }
 }
