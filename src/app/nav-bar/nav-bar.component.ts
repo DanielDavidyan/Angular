@@ -20,7 +20,8 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.cart = new BehaviorSubject({});
-    this.store.pipe(select(getCart)).subscribe(tempCart => this.cart.next(tempCart));
+    this.store.select(getCart).subscribe(tempCart => this.cart.next(tempCart));
+    this.store.select(getCart).subscribe(tempCart => this.cart.next(tempCart));
     this.numberOfProducts = this.getNumberOfProductsInCart(this.cart);
   }
 

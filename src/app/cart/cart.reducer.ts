@@ -37,16 +37,18 @@ export const _cartReducer = createReducer(
 function remove(cart, cartProductName): Record<string, number> {
   const newCart = {...cart};
   delete newCart[cartProductName];
-  console.log('remove work!!!!!!');
   return newCart;
 }
 
 export const getCartState = createFeatureSelector<CartProductState>(cartToken);
-export const getCart = createSelector(getCartState, state => state.cart);
-// export const isExistInCart = createSelector(getCartStawte, props => state.cart);
-
-// export const updat2eProductAmount = createAction('[cart] UpdateProductAmount', props<{cartProductName: string, amount: number}>());
-
+export const getCart = createSelector(getCartState,
+    state => state.cart);
+export const isExistInCart = createSelector(getCart,
+    (cart, {cartProductName}: {cartProductName: string}) => {
+      console.log('asd');
+      return !!cart[cartProductName];
+    });
+    // (state, props: {cartProductName: string}) => !!state.cart[props.cartProductName]);
 
 export function cartReducer(state, action): CartProductState {
   return _cartReducer(state, action);
