@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Product} from '../../models/stock.model';
 import {Input} from '@angular/core';
-import {CartProductsService} from '../../cart/cart-service/cart-products.service';
 import {ProductsService} from '../product-service/products.service';
 import {addProduct, removeProduct} from '../../cart/cart.actions';
 import {select, Store} from '@ngrx/store';
@@ -19,7 +18,6 @@ export class ProductComponent implements OnInit {
   exist$: Observable<boolean>;
 
   constructor(private productsService: ProductsService,
-              private cartProductsService: CartProductsService,
               private store: Store<CartProductState>) {
   }
 

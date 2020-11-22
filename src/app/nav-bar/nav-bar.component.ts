@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {CartProductsService} from '../cart/cart-service/cart-products.service';
-import {select, Store} from '@ngrx/store';
+import {Store} from '@ngrx/store';
 import {CartProductState, getCart} from '../cart/cart.reducer';
 
 @Component({
@@ -14,8 +13,7 @@ export class NavBarComponent implements OnInit {
   cart: BehaviorSubject<Record<string, number>>;
   numberOfProducts: Observable<number>;
 
-  constructor(private cartProductsService: CartProductsService,
-              private store: Store<CartProductState>) {
+  constructor(private store: Store<CartProductState>) {
   }
 
   ngOnInit(): void {

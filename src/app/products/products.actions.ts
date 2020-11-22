@@ -1,3 +1,4 @@
 import {createAction, props} from '@ngrx/store';
-import {Product} from '../models/stock.model';
+
+export const updateLimit = createAction('[cart] UpdateProductAmount', props<{productName: string, limit: number}>());
 

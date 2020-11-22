@@ -1,11 +1,15 @@
-import {createReducer} from '@ngrx/store';
-import {} from './products.actions';
+import {createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
+import {updateLimit} from './products.actions';
 import {Product} from '../models/stock.model';
+import {CartProductsInitialState, getCart} from '../cart/cart.reducer';
+import {removeProduct} from '../cart/cart.actions';
 
 export const productsToken = 'products';
+
 export interface ProductsState {
   products: Product[];
 }
+
 export const ProductsInitialState: ProductsState = {
   // todo refactor, use effects.ts!
   products: [
@@ -52,42 +56,30 @@ export const ProductsInitialState: ProductsState = {
 
 export const _productsReducer = createReducer(
   ProductsInitialState,
-  // on(addProduct, (state , {product}) => ({
-  //   ...state,
-  //   cart: {
-  //     ...state.cart,
-  //     [product.name]: 1
-  //   }
-  // })),
-  // on(removeProduct, (state , {cartProductName}) => ({
-  //   ...state,
-  //   cart: remove(state.cart, cartProductName)
-  // })),
-  // on(updateProductAmount, (state , {cartProductName, amount}) => ({
-  //   ...state,
-  //   cart: {
-  //     ...state.cart,
-  //     [cartProductName]: amount
-  //   }
-  // }))
+  on(updateLimit, (state, {productName, limit}) => ({
+    ...state,
+    products: update(state.products, productName, limit)
+  }))
 );
 
-// function remove(cart, cartProductName): Record<string, number> {
-//   const newCart = {...cart};
-//   delete newCart[cartProductName];
-//   console.log('remove work!!!!!!');
-//   return newCart;
-// }
-//
-// export const getCartState = createFeatureSelector<CartProductState>(cartToken);
-// export const getCart = createSelector(getCartState, state => state.cart);
-// export const isExistInCart = createSelector(getCartStawte, props => state.cart);
-//
-// export const updat2eProductAmount = createAction('[cart] UpdateProductAmount', props<{cartProductName: string, amount: number}>());
-//
+function update(products, productName, limit): Product[] {
+  const newProducts = {...products};
+  const productIndex = newProducts.findIndex((prod: Product) => prod.name === productName);
+  if (productIndex !== -1 && newProducts[productIndex].limit) {
+    newProducts[productIndex].limit -= limit;
+    return newProducts;
+  }
+}
 
+export const getProductsState = createFeatureSelector<ProductsState>(productsToken);
+export const getProducts = createSelector(getProductsState,
+  state => state.products);
+
+export const getProduct = createSelector(getProducts,
+  (products, {productName}: {productName: string}) => {
+    return products.find(stockProduct => stockProduct.name === productName);
+  });
 
 export function productsReducer(state, action): ProductsState {
   return _productsReducer(state, action);
 }
-

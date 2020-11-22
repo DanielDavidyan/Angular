@@ -3,9 +3,10 @@ import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Product} from '../../models/stock.model';
 import {ProductsService} from '../../products/product-service/products.service';
-import {CartProductsService} from '../cart-service/cart-products.service';
 import {select, Store} from '@ngrx/store';
 import {CartProductState, getCart } from '../cart.reducer';
+import {getProducts, ProductsState} from '../../products/products.reducer';
+import {updateLimit} from '../../products/products.actions';
 
 @Component({
   selector: 'app-cart-list',
@@ -18,15 +19,15 @@ export class CartListComponent implements OnInit {
   totalPrice: Observable<number>;
 
   constructor(private productsService: ProductsService,
-              private cartProductsService: CartProductsService,
-              private store: Store<CartProductState>) {
+              private store: Store<CartProductState | ProductsState>) {
   }
 
   ngOnInit(): void {
     this.cartProducts = new BehaviorSubject<Record<string, number>>({});
-    this.store.pipe(select(getCart)).subscribe(cart => this.cartProducts.next(cart));
+    this.store.select(getCart).subscribe(cart => this.cartProducts.next(cart));
     // this.cartProducts = this.cartProductsService.getCartProducts();
-    this.products = this.productsService.getProducts();
+    this.products = this.store.select(getProducts);
+    // this.products = this.productsService.getProducts();
     this.getTotalPrice();
   }
 
@@ -43,7 +44,8 @@ export class CartListComponent implements OnInit {
   checkout(): void {
     const productsInCart: string[] = Object.keys(this.cartProducts.getValue());
     productsInCart.map(cartProduct => {
-      this.productsService.updateLimit(cartProduct, this.cartProducts.getValue()[cartProduct]);
+      this.store.dispatch(updateLimit({productName: cartProduct, limit: this.cartProducts.getValue()[cartProduct]}));
+      // this.productsService.updateLimit(cartProduct, this.cartProducts.getValue()[cartProduct]);
     });
     this.cartProducts.next({}); //todo: refactor with dispatch
   }

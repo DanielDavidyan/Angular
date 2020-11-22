@@ -1,7 +1,6 @@
 import {createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
 import {addProduct, removeProduct, updateProductAmount} from './cart.actions';
 
-
 export const cartToken = 'cart';
 
 export interface CartProductState {
@@ -45,7 +44,6 @@ export const getCart = createSelector(getCartState,
     state => state.cart);
 export const isExistInCart = createSelector(getCart,
     (cart, {cartProductName}: {cartProductName: string}) => {
-      console.log('asd');
       return !!cart[cartProductName];
     });
     // (state, props: {cartProductName: string}) => !!state.cart[props.cartProductName]);
