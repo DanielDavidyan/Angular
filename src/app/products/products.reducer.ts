@@ -63,11 +63,12 @@ export const _productsReducer = createReducer(
 );
 
 function update(products, productName, limit): Product[] {
-  const newProducts = {...products};
-  const productIndex = newProducts.findIndex((prod: Product) => prod.name === productName);
-  if (productIndex !== -1 && newProducts[productIndex].limit) {
-    newProducts[productIndex].limit -= limit;
-    return newProducts;
+  const currentProducts: Product[] = [...products];
+  const productIndex = currentProducts.findIndex((prod: Product) => prod.name === productName);
+  if (productIndex !== -1 && currentProducts[productIndex].limit) {
+    currentProducts[productIndex].limit -= limit;
+    console.log('limit is: ', limit);
+    return currentProducts;
   }
 }
 

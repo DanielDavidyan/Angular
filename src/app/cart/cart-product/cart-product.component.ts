@@ -25,12 +25,10 @@ export class CartProductComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
   }
 
-
   ngOnInit(): void {
-  this.store.select(getProduct, {productName: this.cartProductName}).subscribe(prod => this.product = prod);
-  this.options = this.createArray(this.product.limit);
-
-    // this.productsService.getProduct(this.cartProductName).subscribe(product => this.product = product);
+    this.store.select(getProduct, {productName: this.cartProductName}).subscribe(prod => this.product = prod);
+    this.cartProducts = this.store.select(getCart);
+    this.options = this.createArray(this.product.limit);
   }
 
   removeProduct(cartProductName: string): void {

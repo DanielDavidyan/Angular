@@ -7,6 +7,7 @@ import {select, Store} from '@ngrx/store';
 import {CartProductState, getCart } from '../cart.reducer';
 import {getProducts, ProductsState} from '../../products/products.reducer';
 import {updateLimit} from '../../products/products.actions';
+import {checkOut} from '../cart.actions';
 
 @Component({
   selector: 'app-cart-list',
@@ -28,7 +29,7 @@ export class CartListComponent implements OnInit {
     // this.cartProducts = this.cartProductsService.getCartProducts();
     this.products = this.store.select(getProducts);
     // this.products = this.productsService.getProducts();
-    this.getTotalPrice();
+    // this.getTotalPrice();
   }
 
   private getTotalPrice(): void {
@@ -44,9 +45,10 @@ export class CartListComponent implements OnInit {
   checkout(): void {
     const productsInCart: string[] = Object.keys(this.cartProducts.getValue());
     productsInCart.map(cartProduct => {
-      this.store.dispatch(updateLimit({productName: cartProduct, limit: this.cartProducts.getValue()[cartProduct]}));
+     this.store.dispatch(updateLimit({productName: cartProduct, limit: this.cartProducts.getValue()[cartProduct]}));
       // this.productsService.updateLimit(cartProduct, this.cartProducts.getValue()[cartProduct]);
     });
-    this.cartProducts.next({}); //todo: refactor with dispatch
+    this.store.dispatch(checkOut());
+    // this.cartProducts.next({}); // todo: refactor with dispatch
   }
 }

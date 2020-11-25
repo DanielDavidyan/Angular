@@ -34,7 +34,6 @@ export class ProductComponent implements OnInit {
   }
 
   // isExistInCart(cartProductName: string): Observable<boolean> {
-  //   console.log('jhjh');
   //   return this.store.select(isExistInCart, {cartProductName});
   // }
 

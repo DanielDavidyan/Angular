@@ -1,5 +1,6 @@
 import {createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
-import {addProduct, removeProduct, updateProductAmount} from './cart.actions';
+import {addProduct, checkOut, removeProduct, updateProductAmount} from './cart.actions';
+import {log} from 'util';
 
 export const cartToken = 'cart';
 
@@ -30,6 +31,10 @@ export const _cartReducer = createReducer(
       ...state.cart,
       [cartProductName]: amount
     }
+  })),
+  on(checkOut, (state) => ({
+    ...state,
+    cart: {}
   }))
 );
 

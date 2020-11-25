@@ -1,4 +1,5 @@
 import {createAction, props} from '@ngrx/store';
 
-export const updateLimit = createAction('[cart] UpdateProductAmount', props<{productName: string, limit: number}>());
+export const updateLimit = createAction('[cart] UpdateLimit', props<{productName: string, limit: number}>());
+
 
