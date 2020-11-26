@@ -1,8 +1,6 @@
 import {createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
 import {updateLimit} from './products.actions';
 import {Product} from '../models/stock.model';
-import {CartProductsInitialState, getCart} from '../cart/cart.reducer';
-import {removeProduct} from '../cart/cart.actions';
 
 export const productsToken = 'products';
 
@@ -66,10 +64,12 @@ function update(products, productName, limit): Product[] {
   const currentProducts: Product[] = [...products];
   const productIndex = currentProducts.findIndex((prod: Product) => prod.name === productName);
   if (productIndex !== -1 && currentProducts[productIndex].limit) {
-    currentProducts[productIndex].limit -= limit;
-    console.log('limit is: ', limit);
-    return currentProducts;
+    currentProducts[productIndex] = {
+      ...currentProducts[productIndex],
+      limit: currentProducts[productIndex].limit - limit,
+    };
   }
+  return [...currentProducts];
 }
 
 export const getProductsState = createFeatureSelector<ProductsState>(productsToken);
@@ -77,7 +77,7 @@ export const getProducts = createSelector(getProductsState,
   state => state.products);
 
 export const getProduct = createSelector(getProducts,
-  (products, {productName}: {productName: string}) => {
+  (products, {productName}: { productName: string }) => {
     return products.find(stockProduct => stockProduct.name === productName);
   });
 

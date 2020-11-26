@@ -29,18 +29,4 @@ describe('ProductService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('getProducts', () => {
-    const products = [product];
-    expect(service.getProducts()).toEqual(new BehaviorSubject(products));
-  });
-
-  it('getProduct', () => {
-    expect(service.getProduct(productName)['destination']['_value'][0]).toEqual((product));
-  });
-
-  it('updateLimit', () => {
-    service.updateLimit(productName, productLimit);
-    expect(service.getProduct(productName)['destination']['_value'][0].limit).toEqual((product.limit));
-  });
-
 });

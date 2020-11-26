@@ -32,13 +32,4 @@ export class ProductComponent implements OnInit {
   removeProduct(cartProductName: string): void {
     this.store.dispatch(removeProduct({cartProductName}));
   }
-
-  // isExistInCart(cartProductName: string): Observable<boolean> {
-  //   return this.store.select(isExistInCart, {cartProductName});
-  // }
-
-
-  isProductHasLimit(): boolean {
-    return this.product.limit && this.product.limit > 0;
-  }
 }

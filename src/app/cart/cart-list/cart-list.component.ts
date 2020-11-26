@@ -4,7 +4,7 @@ import {map} from 'rxjs/operators';
 import {Product} from '../../models/stock.model';
 import {ProductsService} from '../../products/product-service/products.service';
 import {select, Store} from '@ngrx/store';
-import {CartProductState, getCart } from '../cart.reducer';
+import {CartProductState, getCart} from '../cart.reducer';
 import {getProducts, ProductsState} from '../../products/products.reducer';
 import {updateLimit} from '../../products/products.actions';
 import {checkOut} from '../cart.actions';
@@ -28,27 +28,24 @@ export class CartListComponent implements OnInit {
     this.store.select(getCart).subscribe(cart => this.cartProducts.next(cart));
     // this.cartProducts = this.cartProductsService.getCartProducts();
     this.products = this.store.select(getProducts);
-    // this.products = this.productsService.getProducts();
-    // this.getTotalPrice();
-  }
-
-  private getTotalPrice(): void {
-    this.totalPrice = combineLatest([this.cartProducts, this.products]).pipe(
-      map(([cart, stock]) => {
-      const productsInCart: string[] = Object.keys(cart);
-      return productsInCart.reduce((total: number, product: string) =>
-        total + (cart[product] * stock.find((prod: Product) => prod.name === product).price)
-        , 0);
-    }));
+    this.getTotalPrice();
   }
 
   checkout(): void {
     const productsInCart: string[] = Object.keys(this.cartProducts.getValue());
     productsInCart.map(cartProduct => {
-     this.store.dispatch(updateLimit({productName: cartProduct, limit: this.cartProducts.getValue()[cartProduct]}));
-      // this.productsService.updateLimit(cartProduct, this.cartProducts.getValue()[cartProduct]);
+      this.store.dispatch(updateLimit({productName: cartProduct, limit: this.cartProducts.getValue()[cartProduct]}));
     });
     this.store.dispatch(checkOut());
-    // this.cartProducts.next({}); // todo: refactor with dispatch
+  }
+
+  private getTotalPrice(): void {
+    this.totalPrice = combineLatest([this.cartProducts, this.products]).pipe(
+      map(([cart, stock]) => {
+        const productsInCart: string[] = Object.keys(cart);
+        return productsInCart.reduce((total: number, product: string) =>
+          total + (cart[product] * stock.find((prod: Product) => prod.name === product).price)
+          , 0);
+      }));
   }
 }
