@@ -3,10 +3,9 @@ import {Product} from '../../models/stock.model';
 import {Input} from '@angular/core';
 import {ProductsService} from '../product-service/products.service';
 import {addProduct, removeProduct} from '../../cart/cart.actions';
-import {select, Store} from '@ngrx/store';
-import {CartProductState, getCart, isExistInCart} from '../../cart/cart.reducer';
+import {Store} from '@ngrx/store';
+import {CartProductState, isExistInCart} from '../../cart/cart.reducer';
 import {Observable} from 'rxjs';
-
 
 @Component({
   selector: 'app-product',

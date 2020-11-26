@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Product} from '../../models/stock.model';
 
 @Injectable()
@@ -13,21 +13,8 @@ export class ProductsService {
     });
   }
 
-  // getProducts(): Observable<Product[]> {
-  //   return this.products;
-  // }
-  //
-  // getProduct(productName: string): Observable<Product> {
-  //   return this.products.pipe(map((products: Product[]) =>
-  //     products.find(stockProduct => stockProduct.name === productName)));
-  // }
-  //
-  // updateLimit(productName: string, limit: number): void {
-  //   const currentProducts = this.products.getValue();
-  //   const productIndex = currentProducts.findIndex((originalProduct: Product) => originalProduct.name === productName);
-  //   if (productIndex !== -1 && currentProducts[productIndex].limit) {
-  //       currentProducts[productIndex].limit -= limit;
-  //       this.products.next(currentProducts);
-  //   }
-  // }
+  getProducts(): Observable<Product[]> {
+      // return this.products.asObservable();
+      return this.httpClient.get<Product[]>('assets/stock.json');
+  }
 }

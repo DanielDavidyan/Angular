@@ -7,6 +7,8 @@ import {RouterModule} from '@angular/router';
 import {ProductModuleRouting} from './product-module.routing';
 import {StoreModule} from '@ngrx/store';
 import {productsReducer, productsToken} from './products.reducer';
+import {EffectsModule} from '@ngrx/effects';
+import {ProductsEffects} from './products.effects';
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import {productsReducer, productsToken} from './products.reducer';
     RouterModule,
     CommonModule,
     ProductModuleRouting,
-    StoreModule.forFeature(productsToken, productsReducer)
+    StoreModule.forFeature(productsToken, productsReducer),
+    EffectsModule.forFeature([ProductsEffects])
   ],
   exports: [
     ProductComponent,

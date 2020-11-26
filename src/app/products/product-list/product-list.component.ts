@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Product} from '../../models/stock.model';
-import {ProductsService} from '../product-service/products.service';
 import {Store} from '@ngrx/store';
 import {getProducts, ProductsState} from '../products.reducer';
+import {loadProducts} from '../products.actions';
 
 @Component({
   selector: 'app-product-list',
@@ -18,6 +18,6 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.products = this.store.select(getProducts);
-    // this.products = this.productsService.getProducts();
+    this.store.dispatch(loadProducts());
   }
 }

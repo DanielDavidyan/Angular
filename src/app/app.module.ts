@@ -15,6 +15,7 @@ import {CartModule} from './cart/cart.module';
 import {ProductsService} from './products/product-service/products.service';
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {EffectsModule} from '@ngrx/effects';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
     ProductsModule,
     CartModule,
     StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
     }),
