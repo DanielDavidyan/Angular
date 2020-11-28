@@ -14,7 +14,6 @@ export class ProductsService {
   }
 
   getProducts(): Observable<Product[]> {
-      // return this.products.asObservable();
       return this.httpClient.get<Product[]>('assets/stock.json');
   }
 }

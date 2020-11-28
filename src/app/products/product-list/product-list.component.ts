@@ -3,7 +3,6 @@ import {Observable} from 'rxjs';
 import {Product} from '../../models/stock.model';
 import {Store} from '@ngrx/store';
 import {getProducts, ProductsState} from '../products.reducer';
-import {loadProducts} from '../products.actions';
 
 @Component({
   selector: 'app-product-list',
@@ -18,6 +17,5 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.products = this.store.select(getProducts);
-    this.store.dispatch(loadProducts());
   }
 }
