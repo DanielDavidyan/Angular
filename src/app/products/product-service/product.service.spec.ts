@@ -50,7 +50,6 @@ describe('ProductService', () => {
     }
   );
 
-
   it('should be updateLimit', () => {
     service.updateLimit(productName, productLimit);
     let productLimitFromService = 0;
