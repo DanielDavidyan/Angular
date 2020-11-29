@@ -7,7 +7,7 @@ import {select, Store} from '@ngrx/store';
 import {CartProductState, getCart} from '../cart.reducer';
 import {getProducts, ProductsState} from '../../products/products.reducer';
 import {updateLimit} from '../../products/products.actions';
-import {checkOut} from '../cart.actions';
+import {checkout} from '../cart.actions';
 
 @Component({
   selector: 'app-cart-list',
@@ -36,7 +36,7 @@ export class CartListComponent implements OnInit {
     productsInCart.map(cartProduct => {
       this.store.dispatch(updateLimit({productName: cartProduct, limit: this.cartProducts.getValue()[cartProduct]}));
     });
-    this.store.dispatch(checkOut());
+    this.store.dispatch(checkout());
   }
 
   private getTotalPrice(): void {

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {CartProductState, getCart} from '../cart/cart.reducer';
 
 @Component({
@@ -18,8 +18,7 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.cart = new BehaviorSubject({});
-    this.store.select(getCart).subscribe(tempCart => this.cart.next(tempCart));
-    this.store.select(getCart).subscribe(tempCart => this.cart.next(tempCart));
+    this.store.pipe(select(getCart)).subscribe(cart => this.cart.next(cart));
     this.numberOfProducts = this.getNumberOfProductsInCart(this.cart);
   }
 

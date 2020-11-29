@@ -35,7 +35,7 @@ import {EffectsModule} from '@ngrx/effects';
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
-      maxAge: 25, // Retains last 25 states
+      maxAge: 25,
     }),
   ],
   providers: [
