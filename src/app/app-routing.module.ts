@@ -12,13 +12,6 @@ const routes: Routes = [
   }
 ];
 
-// const routes: Routes = [
-//   {path: '', component: ProductListComponent},
-//   {path: 'cart', component: CartListComponent},
-//   // {path: 'cart', loadChildren: () => import('./cart/cart.module').then(m => m.CartModule)},
-//   {path: 'products/:productId', loadChildren: () => import('./products/product.module').then(m => m.ProductsModule)}
-// ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
