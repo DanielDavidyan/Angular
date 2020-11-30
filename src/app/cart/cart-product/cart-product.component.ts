@@ -12,7 +12,7 @@ import {getProduct, ProductsState} from '../../products/products.reducer';
   templateUrl: './cart-product.component.html',
   styleUrls: ['./cart-product.component.less']
 })
-export class CartProductComponent implements OnInit, AfterViewInit {
+export class CartProductComponent implements OnInit {
   @Input() cartProductName: string;
   product: Product;
   options: number[];
@@ -22,11 +22,8 @@ export class CartProductComponent implements OnInit, AfterViewInit {
               private store: Store<CartProductState | ProductsState>) {
   }
 
-  ngAfterViewInit(): void {
-  }
-
   ngOnInit(): void {
-    this.store.select(getProduct, {productName: this.cartProductName}).subscribe(prod => this.product = prod);
+    this.store.pipe(select(getProduct, {productName: this.cartProductName})).subscribe(prod => this.product = prod);
     this.cartProducts = this.store.pipe(select(getCart));
     this.options = this.createArray(this.product.limit);
   }

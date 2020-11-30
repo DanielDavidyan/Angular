@@ -1,21 +1,20 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType, OnInitEffects} from '@ngrx/effects';
-import { EMPTY } from 'rxjs';
 import {map, catchError, switchMap} from 'rxjs/operators';
 import {ProductsService} from './product-service/products.service';
-import {loadProducts, loadProductsSuccess} from './products.actions';
+import {loadProducts, loadProductsSuccess, loadProductsFailed} from './products.actions';
+import {Action} from '@ngrx/store';
 
 @Injectable()
-export class ProductsEffects {
 
-  // export class ProductsEffects implements OnInitEffects{
+export class ProductsEffects implements OnInitEffects {
 
   loadProducts$ = createEffect(() => this.actions$.pipe(
     ofType(loadProducts),
     switchMap(() => this.productsService.getProducts()
       .pipe(
         map(products => loadProductsSuccess({products})),
-        catchError(() => EMPTY)
+        catchError(() => loadProductsFailed)
       ))
     )
   );
@@ -25,10 +24,7 @@ export class ProductsEffects {
     private productsService: ProductsService
   ) {}
 
-  // ngrxOnInitEffects() {
-  //   return { type: '[products] Get Products' };
-  // }
+  ngrxOnInitEffects(): Action {
+    return loadProducts();
+  }
 }
-
-
-// ngrxOnInitEffects

@@ -1,7 +1,7 @@
 import {createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
 import {addProduct, checkout, removeProduct, updateProductAmount} from './cart.actions';
 
-export const cartToken = 'cart';
+export const cartToken = 'cartToken';
 
 export interface CartProductState {
   cart: Record<string, number>;
@@ -11,7 +11,7 @@ export const CartProductsInitialState: CartProductState = {
   cart: {}
 };
 
-export const _cartReducer = createReducer(
+export const cartReducer = createReducer(
   CartProductsInitialState,
   on(addProduct, (state, {product}) => ({
     ...state,
@@ -22,7 +22,7 @@ export const _cartReducer = createReducer(
   })),
   on(removeProduct, (state, {cartProductName}) => ({
     ...state,
-    cart: remove(state.cart, cartProductName)
+    cart: remove({...state.cart}, cartProductName)
   })),
   on(updateProductAmount, (state, {cartProductName, amount}) => ({
     ...state,
@@ -38,19 +38,16 @@ export const _cartReducer = createReducer(
 );
 
 function remove(cart, cartProductName): Record<string, number> {
-  const newCart = {...cart};
-  delete newCart[cartProductName];
-  return newCart;
+  delete cart[cartProductName];
+  return {...cart};
 }
 
 export const getCartState = createFeatureSelector<CartProductState>(cartToken);
 export const getCart = createSelector(getCartState,
-    state => state.cart);
+  state => state.cart);
 export const isExistInCart = createSelector(getCart,
-    (cart, {cartProductName}: {cartProductName: string}) => {
-      return !!cart[cartProductName];
-    });
+  (cart, {cartProductName}: { cartProductName: string }) => {
+    return !!cart[cartProductName];
+  });
 
-export function cartReducer(state, action): CartProductState {
-  return _cartReducer(state, action);
-}
+

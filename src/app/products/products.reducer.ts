@@ -12,28 +12,27 @@ export const ProductsInitialState: ProductsState = {
   products: []
 };
 
-export const _productsReducer = createReducer(
+export const productsReducer = createReducer(
   ProductsInitialState,
   on(updateLimit, (state, {productName, limit}) => ({
     ...state,
-    products: update(state.products, productName, limit)
+    products: update([...state.products], productName, limit)
   })),
   on(loadProductsSuccess, (state, {products}) => ({
     ...state,
-  products
+    products
   }))
 );
 
 function update(products, productName, limit): Product[] {
-  const currentProducts: Product[] = [...products];
-  const productIndex = currentProducts.findIndex((prod: Product) => prod.name === productName);
-  if (productIndex !== -1 && currentProducts[productIndex].limit) {
-    currentProducts[productIndex] = {
-      ...currentProducts[productIndex],
-      limit: currentProducts[productIndex].limit - limit,
+  const productIndex = products.findIndex((stockProduct: Product) => stockProduct.name === productName);
+  if (productIndex !== -1 && products[productIndex].limit) {
+    products[productIndex] = {
+      ...products[productIndex],
+      limit: products[productIndex].limit - limit,
     };
   }
-  return [...currentProducts];
+  return [...products];
 }
 
 export const getProductsState = createFeatureSelector<ProductsState>(productsToken);
@@ -44,7 +43,3 @@ export const getProduct = createSelector(getProducts,
   (products, {productName}: { productName: string }) => {
     return products.find(stockProduct => stockProduct.name === productName);
   });
-
-export function productsReducer(state, action): ProductsState {
-  return _productsReducer(state, action);
-}

@@ -26,7 +26,7 @@ export class CartListComponent implements OnInit {
   ngOnInit(): void {
     this.cartProducts = new BehaviorSubject<Record<string, number>>({});
     this.store.pipe(select(getCart)).subscribe(cart => this.cartProducts.next(cart));
-    this.products = this.store.select(getProducts);
+    this.products = this.store.pipe(select(getProducts));
     this.getTotalPrice();
   }
 

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Product} from '../../models/stock.model';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {getProducts, ProductsState} from '../products.reducer';
 
 @Component({
@@ -16,6 +16,6 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.products = this.store.select(getProducts);
+    this.products = this.store.pipe(select(getProducts));
   }
 }
