@@ -1,9 +1,9 @@
 <div *ngIf="product" id="space">
-  <span> <img src="{{product.image}}" id="image" alt="{{product.name}}"> </span>
+  <span> <img src="{{(product | async ).image}}" id="image" alt="{{(product | async ).name}}"> </span>
   <span>
-    <p id="details"> {{product.name}} </p>
-    <p> {{product.price}} </p>
-    <p> {{product.description}} </p>
+    <p id="details"> {{(product | async ).name}} </p>
+    <p> {{(product | async ).price}} </p>
+    <p> {{(product | async ).description}} </p>
   </span>
 </div>
 

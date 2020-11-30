@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Product} from '../../models/stock.model';
 import {getProduct, ProductsState} from '../products.reducer';
 import {select, Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
 
 
 @Component({
@@ -11,7 +12,7 @@ import {select, Store} from '@ngrx/store';
   styleUrls: ['./product-details.component.less']
 })
 export class ProductDetailsComponent implements OnInit {
-  product: Product;
+  product: Observable<Product>;
   productId: string;
 
   constructor(
@@ -22,6 +23,6 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.productId = this.route.snapshot.paramMap.get('productId');
-    this.store.pipe(select(getProduct, {productName: this.product.name})).subscribe(prod => this.product = prod);
+    this.product = this.store.pipe(select(getProduct, {productName: this.productId}));
   }
 }
