@@ -49,5 +49,12 @@ export const isExistInCart = createSelector(getCart,
   (cart, {cartProductName}: { cartProductName: string }) => {
     return !!cart[cartProductName];
   });
+export const getCartSize = createSelector(getCart,
+  (cart) => {
+    return Object.keys(cart).length;
+});
+
+
+
 
 
