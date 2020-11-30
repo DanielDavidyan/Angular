@@ -1,0 +1,47 @@
+<div class="image">
+  <img src="{{product.image}}" alt="Oatmeal">
+  <div *ngIf="product.limit < 1" class="out-of-stock">
+    <p> out of stock! </p>
+  </div>
+</div>
+<div class="content">
+  <div class="header">
+    <a [title]="product.name + ' details'" [routerLink]="['/products',product.name]"
+       class="product-name"> {{product.name}}
+    </a>
+  </div>
+  <div class="description">
+    {{product.description}}
+  </div>
+</div>
+<div class="extra content">
+ <span class="right floated">
+      <button
+        *ngIf="!isExistInCart(product.name) &&
+        ((product.hasOwnProperty('limit') && product.limit > 0) || (!product.hasOwnProperty('limit')))" (click)="addProduct(product)"
+        class="ui primary button" id="regular-add">
+        Add to cart
+      </button>
+      <button *ngIf="!isExistInCart(product.name) &&
+      !((product.hasOwnProperty('limit') && product.limit > 0) || (!product.hasOwnProperty('limit')))"
+              class="ui primary button" id="opacity-add">
+        Add to cart
+      </button>
+      <button *ngIf="isExistInCart(product.name)" (click)="removeProduct(product.name)"
+              class="ui primary button" id="remove">
+        remove from cart
+      </button>
+  </span>
+  <span>
+      <div>
+        <i class="shekel sign icon"></i> {{product.price}}
+      </div>
+      <div>
+        <i class="yellow star icon"></i>
+        <i class="yellow star icon"></i>
+        <i class="yellow star icon"></i>
+        <i class="star icon"></i>
+        <i class="star icon"></i>
+      </div>
+  </span>
+</div>

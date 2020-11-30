@@ -1,0 +1,76 @@
+@import "src/styles/colors.less";
+
+:host {
+  &:hover {
+    .image {
+      opacity: 0.6;
+    }
+  }
+}
+
+.card :hover {
+  .image {
+    opacity: 0.6;
+  }
+}
+
+.image {
+  background-color: @white !important;
+}
+
+.header {
+  &:hover {
+    .product-name {
+      color: @orange;
+    }
+
+    text-decoration: underline;
+  }
+
+  .product-name {
+    color: @black;
+  }
+}
+
+
+#regular-add {
+  color: @black;
+  background-color: @orange;
+  border: solid 1px @brown;
+  padding: 0.6vw;
+
+
+  &:hover {
+    background-color: @bright-orange;
+  }
+}
+
+#opacity-add {
+  opacity: 0.2;
+  color: @black;
+  background-color: @orange;
+  border: solid 1px @brown;
+  padding: 0.6vw;
+}
+
+
+#remove {
+  color: @white;
+  background-color: @silver;
+  border: solid 1px @brown;
+  padding: 0.6vw;
+
+  &:hover {
+    background-color: @black;
+  }
+}
+
+.out-of-stock {
+  position: absolute;
+  bottom: 27%;
+  right: 33%;
+  padding: 2%;
+  background-color: @pink;
+  border: @red 3px solid;
+  color: @red;
+}

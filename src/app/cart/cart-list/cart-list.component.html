@@ -1,0 +1,27 @@
+<div id="shopping-cart">
+  <p id="title"> Your Shopping Cart </p>
+  <div class="ui very relaxed divided items">
+
+    <app-cart-product *ngFor="let cartProductName of (cartProducts|async) | keyvalue " class="item"
+                      [cartProductName]="cartProductName.key">
+    </app-cart-product>
+
+    <div class="item">
+      <p id="total-price"> Total Price: <i class="shekel sign icon shekel-sign-icon"></i> {{totalPrice | async}} </p>
+    </div>
+  </div>
+</div>
+
+<div id="cart-actions">
+  <a [routerLink]="['']">
+    <div class="ui black button">
+      continue shopping
+    </div>
+  </a>
+  <a (click)="checkout()">
+    <div class="ui right labeled icon button" id="checkout">
+      checkout
+      <i class="shopping cart icon"></i>
+    </div>
+  </a>
+</div>
