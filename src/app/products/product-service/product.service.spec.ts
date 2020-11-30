@@ -37,20 +37,18 @@ describe('ProductService', () => {
   it('should get an existing product', () => {
       let productFromService = {};
       service.getProduct(productName).subscribe(stockProduct => productFromService = stockProduct);
-      console.log('exist');
       expect(productFromService).toEqual(product);
     }
   );
 
-  it('should get an non-existent product', () => {
+  it('should return undefined when trying to get a non existent product', () => {
       let productFromService = {};
       service.getProduct(productNameDoesntExist).subscribe(stockProduct => productFromService = stockProduct);
-      console.log('doesnt exist');
       expect(productFromService).toEqual(undefined);
     }
   );
 
-  it('should be updateLimit', () => {
+  it('should product update limit when called', () => {
     service.updateLimit(productName, productLimit);
     let productLimitFromService = 0;
     service.getProduct(productName).subscribe(stockProduct => productLimitFromService = stockProduct.limit);
