@@ -2,7 +2,7 @@ import {createFeatureSelector, createReducer, createSelector, on} from '@ngrx/st
 import {loadProductsSuccess, updateLimit} from './products.actions';
 import {Product} from '../models/stock.model';
 
-export const productsToken = 'products';
+export const productsToken = 'productsToken';
 
 export interface ProductsState {
   products: Product[];

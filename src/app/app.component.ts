@@ -16,7 +16,5 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(loadProducts());
-    // ngrxOnInitEffects
   }
-
 }
