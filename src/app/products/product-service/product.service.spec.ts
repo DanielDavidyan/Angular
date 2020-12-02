@@ -8,9 +8,9 @@ import {HttpClient} from '@angular/common/http';
 describe('ProductService', () => {
   let service: ProductsService;
   const productName = 'milk';
-  const productLimit = 15;
+  const productNameDoesntExist = 'Product not in stock';
+  const productLimit = 5;
   const product: Product = {name: 'milk', description: 'fresh', image: 'www.milk.com', limit: 10, price: 10};
-  // when(service.getProduct(productName)).thenReturn(of(product));
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -25,8 +25,34 @@ describe('ProductService', () => {
     service.products = new BehaviorSubject<Product[]>([product]);
   });
 
-  test('should be created', () => {
+  it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('should get the products', () => {
+    const products = [product];
+    expect(service.getProducts()).toEqual(new BehaviorSubject(products));
+  });
+
+  it('should get an existing product', () => {
+      let productFromService = {};
+      service.getProduct(productName).subscribe(stockProduct => productFromService = stockProduct);
+      expect(productFromService).toEqual(product);
+    }
+  );
+
+  it('should return undefined when trying to get a non existent product', () => {
+      let productFromService = {};
+      service.getProduct(productNameDoesntExist).subscribe(stockProduct => productFromService = stockProduct);
+      expect(productFromService).toEqual(undefined);
+    }
+  );
+
+  it('should product update limit when called', () => {
+    service.updateLimit(productName, productLimit);
+    let productLimitFromService = 0;
+    service.getProduct(productName).subscribe(stockProduct => productLimitFromService = stockProduct.limit);
+    expect(productLimitFromService).toEqual(product.limit);
   });
 
 });
