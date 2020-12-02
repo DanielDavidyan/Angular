@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {CartProductsService} from '../cart/cart-service/cart-products.service';
+import {Observable} from 'rxjs';
+import {select, Store} from '@ngrx/store';
+import {CartProductState, getCart, getCartSize} from '../cart/cart.reducer';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,16 +9,14 @@ import {CartProductsService} from '../cart/cart-service/cart-products.service';
   styleUrls: ['./nav-bar.component.less']
 })
 export class NavBarComponent implements OnInit {
+  cart: Observable<Record<string, number>>;
   numberOfProducts: Observable<number>;
 
-  constructor(private cartProductsService: CartProductsService) {
+  constructor(private store: Store<CartProductState>) {
   }
 
   ngOnInit(): void {
-    this.numberOfProducts = this.getNumberOfProductsInCart(this.cartProductsService.getCartProducts());
-  }
-
-  private getNumberOfProductsInCart(cartProducts: BehaviorSubject<Record<string, number>>): Observable<number> {
-    return cartProducts.pipe(map(() => Object.keys(cartProducts.getValue()).length));
+    this.cart =  this.store.pipe(select(getCart));
+    this.numberOfProducts = this.store.pipe(select(getCartSize));
   }
 }

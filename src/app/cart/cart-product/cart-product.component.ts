@@ -1,8 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Product} from '../../models/stock.model';
 import {ProductsService} from '../../products/product-service/products.service';
-import {CartProductsService} from '../cart-service/cart-products.service';
+import {select, Store} from '@ngrx/store';
+import {CartProductState, getCart} from '../cart.reducer';
+import {removeProduct, updateProductAmount} from '../cart.actions';
+import {getProduct, ProductsState} from '../../products/products.reducer';
 
 @Component({
   selector: 'app-cart-product',
@@ -16,21 +19,21 @@ export class CartProductComponent implements OnInit {
   cartProducts: Observable<Record<string, number>>;
 
   constructor(private productsService: ProductsService,
-              private cartProductService: CartProductsService) {
+              private store: Store<CartProductState | ProductsState>) {
   }
 
   ngOnInit(): void {
-    this.cartProducts = this.cartProductService.getCartProducts();
-    this.productsService.getProduct(this.cartProductName).subscribe(product => this.product = product);
+    this.store.pipe(select(getProduct, {productName: this.cartProductName})).subscribe(prod => this.product = prod);
+    this.cartProducts = this.store.pipe(select(getCart));
     this.options = this.createArray(this.product.limit);
   }
 
   removeProduct(cartProductName: string): void {
-    this.cartProductService.removeProduct(cartProductName);
+    this.store.dispatch(removeProduct({cartProductName}));
   }
 
   updateProductAmount(amount: number): void {
-    this.cartProductService.updateProductAmount(this.cartProductName, amount);
+    this.store.dispatch(updateProductAmount({cartProductName: this.cartProductName, amount}));
   }
 
   private createArray(size: number): number[] {

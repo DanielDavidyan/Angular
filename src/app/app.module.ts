@@ -13,7 +13,9 @@ import {AppRoutingModule} from './app-routing.module';
 import {ProductsModule} from './products/product.module';
 import {CartModule} from './cart/cart.module';
 import {ProductsService} from './products/product-service/products.service';
-import {CartProductsService} from './cart/cart-service/cart-products.service';
+import {StoreModule} from '@ngrx/store';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {EffectsModule} from '@ngrx/effects';
 
 
 @NgModule({
@@ -29,11 +31,15 @@ import {CartProductsService} from './cart/cart-service/cart-products.service';
     MatInputModule,
     AppRoutingModule,
     ProductsModule,
-    CartModule
+    CartModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+    }),
   ],
   providers: [
-    ProductsService,
-    CartProductsService
+    ProductsService
   ],
   declarations: [
     AppComponent,

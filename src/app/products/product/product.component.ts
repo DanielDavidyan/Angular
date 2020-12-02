@@ -1,30 +1,34 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Product} from '../../models/stock.model';
 import {Input} from '@angular/core';
-import {CartProductsService} from '../../cart/cart-service/cart-products.service';
 import {ProductsService} from '../product-service/products.service';
+import {addProduct, removeProduct} from '../../cart/cart.actions';
+import {select, Store} from '@ngrx/store';
+import {CartProductState, isExistInCart} from '../../cart/cart.reducer';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.less']
 })
-export class ProductComponent {
+export class ProductComponent implements OnInit {
   @Input() product: Product;
+  isExist$: Observable<boolean>;
 
   constructor(private productsService: ProductsService,
-              private cartProductsService: CartProductsService) {
+              private store: Store<CartProductState>) {
+  }
+
+  ngOnInit(): void {
+    this.isExist$ = this.store.pipe(select(isExistInCart, {cartProductName: this.product.name}));
   }
 
   addProduct(product: Product): void {
-    this.cartProductsService.addProduct(product);
+    this.store.dispatch(addProduct({product}));
   }
 
   removeProduct(cartProductName: string): void {
-    this.cartProductsService.removeProduct(cartProductName);
-  }
-
-  isExistInCart(cartProductName: string): boolean {
-    return this.cartProductsService.isExistInCart(cartProductName);
+    this.store.dispatch(removeProduct({cartProductName}));
   }
 }

@@ -1,12 +1,12 @@
 <div class="image">
-  <img src="{{product.image}}" alt="Oatmeal">
+  <img alt="Oatmeal" src="{{product.image}}">
   <div *ngIf="product.limit < 1" class="out-of-stock">
     <p> out of stock! </p>
   </div>
 </div>
 <div class="content">
   <div class="header">
-    <a [title]="product.name + ' details'" [routerLink]="['/products',product.name]"
+    <a [routerLink]="['/products',product.name]" [title]="product.name + ' details'"
        class="product-name"> {{product.name}}
     </a>
   </div>
@@ -16,21 +16,18 @@
 </div>
 <div class="extra content">
  <span class="right floated">
-      <button
-        *ngIf="!isExistInCart(product.name) &&
-        ((product.hasOwnProperty('limit') && product.limit > 0) || (!product.hasOwnProperty('limit')))" (click)="addProduct(product)"
-        class="ui primary button" id="regular-add">
+      <button (click)="addProduct(product)"
+              *ngIf=" !(isExist$ | async); else removeFromCartButton"
+              [disabled]="product.limit === 0"
+              class="ui primary button add">
         Add to cart
       </button>
-      <button *ngIf="!isExistInCart(product.name) &&
-      !((product.hasOwnProperty('limit') && product.limit > 0) || (!product.hasOwnProperty('limit')))"
-              class="ui primary button" id="opacity-add">
-        Add to cart
-      </button>
-      <button *ngIf="isExistInCart(product.name)" (click)="removeProduct(product.name)"
-              class="ui primary button" id="remove">
+   <ng-template #removeFromCartButton>
+      <button (click)="removeProduct(product.name)" class="ui primary button"
+              id="remove">
         remove from cart
       </button>
+     </ng-template>
   </span>
   <span>
       <div>

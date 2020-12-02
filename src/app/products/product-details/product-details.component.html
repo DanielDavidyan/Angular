@@ -1,9 +1,11 @@
 <div *ngIf="product" id="space">
-  <span> <img src="{{product.image}}" id="image" alt="{{product.name}}"> </span>
-  <span>
+  <ng-container *ngIf="product|async as product">
+    <span> <img alt="{{product.name}}" id="image" src="{{product.image}}"> </span>
+    <span>
     <p id="details"> {{product.name}} </p>
     <p> {{product.price}} </p>
     <p> {{product.description}} </p>
   </span>
+  </ng-container>
 </div>
 
