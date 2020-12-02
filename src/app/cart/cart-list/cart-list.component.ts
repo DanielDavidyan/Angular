@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
+import {combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Product} from '../../models/stock.model';
 import {ProductsService} from '../../products/product-service/products.service';
@@ -15,7 +15,7 @@ import {checkout} from '../cart.actions';
   styleUrls: ['./cart-list.component.less']
 })
 export class CartListComponent implements OnInit {
-  cartProducts: BehaviorSubject<Record<string, number>>;
+  cartProducts: Observable<Record<string, number>>;
   products: Observable<Product[]>;
   totalPrice: Observable<number>;
 
@@ -24,16 +24,16 @@ export class CartListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cartProducts = new BehaviorSubject<Record<string, number>>({});
-    this.store.pipe(select(getCart)).subscribe(cart => this.cartProducts.next(cart));
+    this.cartProducts = this.store.pipe(select(getCart));
     this.products = this.store.pipe(select(getProducts));
     this.getTotalPrice();
   }
 
   checkout(): void {
-    const productsInCart: string[] = Object.keys(this.cartProducts.getValue());
-    productsInCart.map(cartProduct => {
-      this.store.dispatch(updateLimit({productName: cartProduct, limit: this.cartProducts.getValue()[cartProduct]}));
+    this.cartProducts.subscribe(cartProducts => {
+      Object.keys(cartProducts).map(cartProduct => {
+        this.store.dispatch(updateLimit({productName: cartProduct, limit: cartProducts[cartProduct]}));
+      });
     });
     this.store.dispatch(checkout());
   }
