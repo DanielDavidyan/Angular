@@ -14,14 +14,14 @@ import {Observable} from 'rxjs';
 })
 export class ProductComponent implements OnInit {
   @Input() product: Product;
-  exist$: Observable<boolean>;
+  isExist$: Observable<boolean>;
 
   constructor(private productsService: ProductsService,
               private store: Store<CartProductState>) {
   }
 
   ngOnInit(): void {
-    this.exist$ = this.store.pipe(select(isExistInCart, {cartProductName: this.product.name}));
+    this.isExist$ = this.store.pipe(select(isExistInCart, {cartProductName: this.product.name}));
   }
 
   addProduct(product: Product): void {

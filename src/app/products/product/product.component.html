@@ -17,7 +17,7 @@
 <div class="extra content">
  <span class="right floated">
       <button (click)="addProduct(product)"
-              *ngIf=" !(exist$ | async); else removeFromCartButton"
+              *ngIf=" !(isExist$ | async); else removeFromCartButton"
               [disabled]="product.limit === 0"
               class="ui primary button add">
         Add to cart
