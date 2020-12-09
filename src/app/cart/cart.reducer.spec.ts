@@ -11,7 +11,7 @@ import {Product} from '../../models/stock.model';
 import {updateLimit} from '../../products/products.actions';
 import Spy = jasmine.Spy;
 
-describe('CartComponent', () => {
+describe('CartReducer', () => {
   let component: CartListComponent;
   let fixture: ComponentFixture<CartListComponent>;
   const mockProductService: ProductsService = mock(ProductsService);

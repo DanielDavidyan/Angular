@@ -43,8 +43,8 @@ describe('CartProductComponent', () => {
   });
 
   it('remove product', () => {
-      component.removeProduct(product.name);
-      verify(MockCartProductsService.removeProduct(product.name)).called();
+    component.removeProduct(product.name);
+    verify(MockCartProductsService.removeProduct(product.name)).called();
   });
 
   it('updateProductAmount product', () => {
