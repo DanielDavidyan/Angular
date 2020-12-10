@@ -48,7 +48,7 @@ describe('CartComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('checkout', async(() => {
+  it('should check if updateLimit and checkout have been called after checkout invoked', async(() => {
     component.checkout();
     expect(storeDispatch).toHaveBeenCalledWith(updateLimit({productName: milk, limit: cart[milk]}));
     expect(storeDispatch).toHaveBeenCalledWith(checkout());

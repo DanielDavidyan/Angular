@@ -8,11 +8,9 @@ import {provideMockActions} from '@ngrx/effects/testing';
 import {ProductsService} from './product-service/products.service';
 import {loadProducts, loadProductsFailed, loadProductsSuccess} from './products.actions';
 import {hot} from 'jasmine-marbles';
-
 import {Product} from '../models/stock.model';
-import {error} from '@angular/compiler/src/util';
 
-describe('CartComponent', () => {
+describe('ProductsEffects', () => {
   let actions$ = new Observable<Action>();
   let effects: ProductsEffects;
   const mockProductService: ProductsService = mock(ProductsService);
@@ -52,16 +50,10 @@ describe('CartComponent', () => {
     expect(effects.loadProducts$).toBeObservable(expected$);
   }));
 
-  it('should failed to load productss', async(() => {
-    when(mockProductService.getProducts()).thenReturn(throwError(`hi`));
+  it('should failed to load products', async(() => {
+    when(mockProductService.getProducts()).thenReturn(throwError('error'));
     actions$ = hot('a', {a: loadProducts()});
-
     const expected$ = hot('b', {b: loadProductsFailed()});
-
     expect(effects.loadProducts$).toBeObservable(expected$);
   }));
 });
-
-
-
-

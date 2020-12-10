@@ -15,7 +15,7 @@ describe('CartReducer', () => {
     expect(state).toEqual(newState);
   });
 
-  it('removeProduct', () => {
+  it('should remove product from the cart', () => {
     cart = {milk: 1};
     const CartProductsInitialState = {cart};
     const newState = {cart: {}};
@@ -24,7 +24,7 @@ describe('CartReducer', () => {
     expect(state).toEqual(newState);
   });
 
-  it('updateProductAmount', () => {
+  it('should update the amount of the product in the cart', () => {
     const cartBeforeUpdate = {milk: 1};
     const cartAfterUpdate = {milk: 5};
     const CartProductsInitialState = {cart: cartBeforeUpdate};
@@ -34,7 +34,7 @@ describe('CartReducer', () => {
     expect(state).toEqual(newState);
   });
 
-  it('checkout', () => {
+  it('should reset the cart', () => {
     cart = {milk: 5};
     const CartProductsInitialState = {cart};
     const newState = {cart: {}};
