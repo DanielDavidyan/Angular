@@ -8,7 +8,6 @@ import {Action} from '@ngrx/store';
 @Injectable()
 
 export class ProductsEffects implements OnInitEffects {
-
   loadProducts$ = createEffect(() => this.actions$.pipe(
     ofType(loadProducts),
     switchMap(() => this.productsService.getProducts()
