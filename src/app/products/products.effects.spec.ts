@@ -1,17 +1,26 @@
 import {async, TestBed} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {instance, mock} from 'ts-mockito';
+import {instance, mock, when} from 'ts-mockito';
 import {ProductsEffects} from './products.effects';
-import {Observable} from 'rxjs';
+import {Observable, of, throwError} from 'rxjs';
 import {Action} from '@ngrx/store';
 import {provideMockActions} from '@ngrx/effects/testing';
 import {ProductsService} from './product-service/products.service';
-import {loadProducts} from './products.actions';
+import {loadProducts, loadProductsFailed, loadProductsSuccess} from './products.actions';
+import {hot} from 'jasmine-marbles';
+
+import {Product} from '../models/stock.model';
+import {error} from '@angular/compiler/src/util';
 
 describe('CartComponent', () => {
-  const actions$ = new Observable<Action>();
+  let actions$ = new Observable<Action>();
   let effects: ProductsEffects;
   const mockProductService: ProductsService = mock(ProductsService);
+  const milkProduct: Product = {name: 'milk', description: 'fresh', image: 'www.milk.com', limit: 10, price: 10};
+  const coffeeProduct: Product = {name: 'milk', description: 'fresh', image: 'www.milk.com', limit: 10, price: 10};
+  const products: Product[] = [milkProduct, coffeeProduct];
+  when(mockProductService.getProducts()).thenReturn(of(products));
+
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -38,12 +47,18 @@ describe('CartComponent', () => {
   }));
 
   it('should success to load products', async(() => {
-    effects.ngrxOnInitEffects();
-    expect(effects.ngrxOnInitEffects()).toEqual(loadProducts());
+    actions$ = hot('--a|', {a: loadProducts});
+    const expected$ = hot('--b|', {b: loadProductsSuccess({products})});
+    expect(effects.loadProducts$).toBeObservable(expected$);
   }));
 
-  it('should failed to load products', async(() => {
-    expect(1).toEqual(2);
+  it('should failed to load productss', async(() => {
+    when(mockProductService.getProducts()).thenReturn(throwError(`hi`));
+    actions$ = hot('a', {a: loadProducts()});
+
+    const expected$ = hot('b', {b: loadProductsFailed()});
+
+    expect(effects.loadProducts$).toBeObservable(expected$);
   }));
 });
 

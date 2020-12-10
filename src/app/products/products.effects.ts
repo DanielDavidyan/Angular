@@ -4,7 +4,7 @@ import {map, catchError, switchMap} from 'rxjs/operators';
 import {ProductsService} from './product-service/products.service';
 import {loadProducts, loadProductsSuccess, loadProductsFailed} from './products.actions';
 import {Action} from '@ngrx/store';
-
+import {of} from 'rxjs';
 @Injectable()
 
 export class ProductsEffects implements OnInitEffects {
@@ -13,7 +13,7 @@ export class ProductsEffects implements OnInitEffects {
     switchMap(() => this.productsService.getProducts()
       .pipe(
         map(products => loadProductsSuccess({products})),
-        catchError(() => loadProductsFailed)
+        catchError((error) => of(loadProductsFailed()))
       ))
     )
   );
