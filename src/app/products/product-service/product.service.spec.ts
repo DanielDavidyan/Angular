@@ -54,5 +54,4 @@ describe('ProductService', () => {
     service.getProduct(productName).subscribe(stockProduct => productLimitFromService = stockProduct.limit);
     expect(productLimitFromService).toEqual(product.limit);
   });
-
 });

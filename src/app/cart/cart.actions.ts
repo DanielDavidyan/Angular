@@ -12,3 +12,4 @@ export const addProduct = createAction(CartActions.ADD_PRODUCT, props<{product: 
 export const removeProduct = createAction(CartActions.REMOVE_PRODUCT, props<{cartProductName: string}>());
 export const updateProductAmount = createAction(CartActions.UPDATE_PRODUCT_AMOUNT, props<{cartProductName: string, amount: number}>());
 export const checkout = createAction(CartActions.CHECKOUT);
+

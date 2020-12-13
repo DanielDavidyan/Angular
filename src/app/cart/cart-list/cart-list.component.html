@@ -2,12 +2,12 @@
   <p id="title"> Your Shopping Cart </p>
   <div class="ui very relaxed divided items">
 
-    <app-cart-product *ngFor="let cartProductName of (cartProducts|async) | keyvalue " class="item"
+    <app-cart-product *ngFor="let cartProductName of (cartProducts$|async) | keyvalue " class="item"
                       [cartProductName]="cartProductName.key">
     </app-cart-product>
 
     <div class="item">
-      <p id="total-price"> Total Price: <i class="shekel sign icon shekel-sign-icon"></i> {{totalPrice | async}} </p>
+      <p id="total-price"> Total Price: <i class="shekel sign icon shekel-sign-icon"></i> {{totalPrice$ | async}} </p>
     </div>
   </div>
 </div>

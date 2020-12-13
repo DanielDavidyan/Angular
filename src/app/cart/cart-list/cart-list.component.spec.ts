@@ -1,47 +1,60 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {CartListComponent} from './cart-list.component';
-import {CartProductsService} from '../cart-service/cart-products.service';
-import {ProductsService} from '../../products/product-service/products.service';
-import {instance, mock, verify, when} from 'ts-mockito';
+import {productsToken} from '../../products/products.reducer';
+import {cartToken} from '../cart.reducer';
+import {MockStore, provideMockStore} from '@ngrx/store/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {instance, mock} from 'ts-mockito';
+import {ProductsService} from '../../products/product-service/products.service';
+import {checkout} from '../cart.actions';
 import {Product} from '../../models/stock.model';
-import {BehaviorSubject, of} from 'rxjs';
+import {updateLimit} from '../../products/products.actions';
+import Spy = jasmine.Spy;
+import {Store} from '@ngrx/store';
 
-describe('CartListComponent', () => {
+describe('CartComponent', () => {
   let component: CartListComponent;
   let fixture: ComponentFixture<CartListComponent>;
-  const MockCartProductsService: CartProductsService = mock(CartProductsService);
-  const MockProductsService: ProductsService = mock(ProductsService);
-  const cartProducts: Record<string, number> = {milk: 5};
-  const product: Product = {name: 'milk', description: 'fresh', image: 'www.milk.com', limit: 10, price: 10};
-  when(MockProductsService.getProducts()).thenReturn(of([product]));
-  when(MockCartProductsService.getCartProducts()).thenReturn(new BehaviorSubject(cartProducts));
+  const mockProductService: ProductsService = mock(ProductsService);
+  let store: MockStore<Store>;
+  const milkProduct: Product = {name: 'milk', description: 'fresh', image: 'www.milk.com', limit: 10, price: 10};
+  const cart: Record<string, number> = {milk: 5};
+  const products: Product[] = [milkProduct];
+  const initialState = {[cartToken]: {cart}, [productsToken]: {products}};
+  let storeDispatch: Spy;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CartListComponent],
+      declarations: [
+        CartListComponent
+      ],
       providers: [
-        {provide: CartProductsService, useValue: instance(MockCartProductsService)},
-        {provide: ProductsService, useValue: instance(MockProductsService)}
+        provideMockStore({initialState}),
+        {provide: ProductsService, useValue: instance(mockProductService)}
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    })
-      .compileComponents();
-  }));
+    });
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CartListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    store = TestBed.inject(MockStore);
+    storeDispatch = spyOn(store, 'dispatch');
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('checkout', () => {
+  it('should check if updateLimit and checkout have been called after checkout invoked', async(() => {
     component.checkout();
-    verify(MockCartProductsService.getCartProducts()).called();
-    verify(MockProductsService.updateLimit(product.name, cartProducts[product.name])).called();
-  });
+    expect(storeDispatch).toHaveBeenCalledWith(updateLimit({productName: 'milk', limit: cart[milkProduct.name]}));
+    expect(storeDispatch).toHaveBeenCalledWith(checkout());
+  }));
 });
+
+
+
+

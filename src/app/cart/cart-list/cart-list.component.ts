@@ -15,22 +15,22 @@ import {checkout} from '../cart.actions';
   styleUrls: ['./cart-list.component.less']
 })
 export class CartListComponent implements OnInit {
-  cartProducts: Observable<Record<string, number>>;
-  products: Observable<Product[]>;
-  totalPrice: Observable<number>;
+  cartProducts$: Observable<Record<string, number>>;
+  products$: Observable<Product[]>;
+  totalPrice$: Observable<number>;
 
   constructor(private productsService: ProductsService,
               private store: Store<CartProductState | ProductsState>) {
   }
 
   ngOnInit(): void {
-    this.cartProducts = this.store.pipe(select(getCart));
-    this.products = this.store.pipe(select(getProducts));
+    this.cartProducts$ = this.store.pipe(select(getCart));
+    this.products$ = this.store.pipe(select(getProducts));
     this.getTotalPrice();
   }
 
   checkout(): void {
-    this.cartProducts.subscribe(cartProducts => {
+    this.cartProducts$.subscribe(cartProducts => {
       Object.keys(cartProducts).map(cartProduct => {
         this.store.dispatch(updateLimit({productName: cartProduct, limit: cartProducts[cartProduct]}));
       });
@@ -39,7 +39,7 @@ export class CartListComponent implements OnInit {
   }
 
   private getTotalPrice(): void {
-    this.totalPrice = combineLatest([this.cartProducts, this.products]).pipe(
+    this.totalPrice$ = combineLatest([this.cartProducts$, this.products$]).pipe(
       map(([cart, stock]) => {
         const productsInCart: string[] = Object.keys(cart);
         return productsInCart.reduce((total: number, product: string) =>
