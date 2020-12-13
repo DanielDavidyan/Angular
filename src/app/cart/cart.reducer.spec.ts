@@ -3,10 +3,9 @@ import {addProduct, checkout, removeProduct, updateProductAmount} from './cart.a
 import {Product} from '../models/stock.model';
 
 describe('CartReducer', () => {
-  let cart: Record<string, number>;
+  const cart: Record<string, number> = {milk: 1};
 
-  it('addProduct', () => {
-    cart = {milk: 1};
+  it('should add product to the cart', () => {
     const milkProduct: Product = {name: 'milk', description: 'fresh', image: 'www.milk.com', limit: 10, price: 10};
     const CartProductsInitialState = {cart: {}};
     const newState = {cart};
@@ -16,7 +15,6 @@ describe('CartReducer', () => {
   });
 
   it('should remove product from the cart', () => {
-    cart = {milk: 1};
     const CartProductsInitialState = {cart};
     const newState = {cart: {}};
     const action = removeProduct({cartProductName: 'milk'});
@@ -35,7 +33,6 @@ describe('CartReducer', () => {
   });
 
   it('should reset the cart', () => {
-    cart = {milk: 5};
     const CartProductsInitialState = {cart};
     const newState = {cart: {}};
     const action = checkout();

@@ -10,14 +10,14 @@ import {checkout} from '../cart.actions';
 import {Product} from '../../models/stock.model';
 import {updateLimit} from '../../products/products.actions';
 import Spy = jasmine.Spy;
+import {Store} from '@ngrx/store';
 
 describe('CartComponent', () => {
   let component: CartListComponent;
   let fixture: ComponentFixture<CartListComponent>;
   const mockProductService: ProductsService = mock(ProductsService);
-  let store: MockStore<any>;
-  const milk = 'milk';
-  const milkProduct: Product = {name: milk, description: 'fresh', image: 'www.milk.com', limit: 10, price: 10};
+  let store: MockStore<Store>;
+  const milkProduct: Product = {name: 'milk', description: 'fresh', image: 'www.milk.com', limit: 10, price: 10};
   const cart: Record<string, number> = {milk: 5};
   const products: Product[] = [milkProduct];
   const initialState = {[cartToken]: {cart}, [productsToken]: {products}};
@@ -50,7 +50,7 @@ describe('CartComponent', () => {
 
   it('should check if updateLimit and checkout have been called after checkout invoked', async(() => {
     component.checkout();
-    expect(storeDispatch).toHaveBeenCalledWith(updateLimit({productName: milk, limit: cart[milk]}));
+    expect(storeDispatch).toHaveBeenCalledWith(updateLimit({productName: 'milk', limit: cart[milkProduct.name]}));
     expect(storeDispatch).toHaveBeenCalledWith(checkout());
   }));
 });
